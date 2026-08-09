@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The 60km Snack &amp; Medicine Run (HCI Mid-Term Project)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="hero">
+    <p class="eyebrow">STET301, Human-Computer Interaction, Mid-Term</p>
+    <h1>The 60km Snack &amp; Medicine Run</h1>
+    <p class="lede">
+      Campus is basically 30km from anywhere that actually delivers. So getting groceries, medicine, or even
+      just snacks means a 60km round trip (5-6 hours, ₹170 in bus fare) for stuff that costs way less
+      than that. Not worth it for one packet of biscuits, so most students just skip it. Which is fine until
+      it's midnight, you're starving, and there's genuinely no food.
+    </p>
+    <nav class="toc" aria-label="Table of contents">
+      <a href="#persona">Persona</a>
+      <a href="#research">Research</a>
+      <a href="#empathy-map">Empathy Map</a>
+      <a href="#journey-map">Journey Map</a>
+      <a href="#pain-point">Pain Point</a>
+      <a href="#user-stories">User Stories</a>
+      <a href="#features">Feature List</a>
+      <a href="#card-sort">Card Sort</a>
+      <a href="#ia-tree">IA Tree</a>
+      <a href="#tree-test">Tree Test</a>
+      <a href="#moscow">MoSCoW</a>
+      <a href="#dfv">DFV Matrix</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section id="persona" class="block tint-blue">
+      <h2>Phase 1 — User Persona &amp; Research</h2>
+
+      <h3>Proto-Persona (initial assumption, before real data)</h3>
+      <p>
+        Aditi, 20, 2nd-year, hostel resident. Assumed goal: get everyday essentials without losing half a day.
+        Assumed frustration: nothing delivers to campus, so she waits it out or asks around for someone with a
+        bike instead of going herself.
+      </p>
+
+      <h3>True User Persona — Kabir (validated against 5 students)</h3>
+      <p>
+        3rd/4th year, hostel resident (6 of 7 survey respondents live in hostel). Needs quick access to
+        food, medicine, and daily essentials without losing hours of study or work time.
+      </p>
+      <ul>
+        <li>Behavior: mostly goes in person, or waits on a delivery app that still takes 2+ hours; when a trip
+          doesn't feel worth it, just skips it.</li>
+        <li>Frustration: rates the whole process 5/5 on average, weekly.</li>
+        <li>Quotes: <q>if there could be any single place from where can get all this and use our time in
+          upskilling</q> and <q>should be less time consuming.</q></li>
+      </ul>
+      <p>
+        <strong>How this differs from the proto-persona:</strong> I assumed people mostly ask friends for help.
+        The data shows people increasingly try delivery apps first, but those still fail them at the exact
+        moment they need something most: at night.
+      </p>
+    </section>
+
+    <section id="research" class="block">
+      <h3>Interview / Observation Method</h3>
+      <p>
+        Every log kept two columns, separate, always. <strong>What I saw/heard</strong>: just the facts, zero
+        reading into it, CCTV-style. <strong>What I think it means</strong>: my own interpretation, written
+        only after, clearly marked as mine. A sloppy observation log invalidates everything built on top of it.
+      </p>
+
+      <h3>Survey Data — 7 responses (5 core students + 2 flagged)</h3>
+      <ul>
+        <li>5 of 7 flagged late-night hunger/food as the top urgent unmet need, more common than medical
+          (3/7) or academic supplies (2/7).</li>
+        <li>5 of 7 took 2+ hours per trip. Frustration mode = 5/5.</li>
+        <li>Method split: 3 went in person, 3 used a delivery app, 1 did without.</li>
+        <li>Even delivery-app users still logged 2+ hours and still flagged late-night hunger as unresolved.
+          Delivery existing isn't the same as it solving the urgent case.</li>
+        <li>Note: 2 respondents marked "outside person" for year of study; their answers were treated as
+          supplementary, not core evidence.</li>
+      </ul>
+    </section>
+
+    <section id="empathy-map" class="block tint-yellow">
+      <h2>Empathy Map</h2>
+      <figure>
+        <img src="images/empathy-map.png"
+             alt="Empathy map for Kabir, a hostel student: Says quadrant includes wanting one place to get everything and reclaim time; Thinks quadrant shows normalized frustration with the process; Does quadrant shows going in person or via slow delivery apps; Feels quadrant shows frustration spiking hardest at night." />
+        <figcaption>Say / Think / Do / Feel, built from the 7-response survey and my own logged trip.</figcaption>
+      </figure>
+    </section>
+
+    <section id="journey-map" class="block">
+      <h2>Journey Map — Emotion Line</h2>
+      <figure>
+        <img src="images/journey-map.png"
+             alt="Journey map from a late-night hunger trigger through the full supply run: emotion starts at 6/10 while working, dips to 2/10 on realizing a 60km trip isn't possible at night, and dips again to 2/10 during the actual 4-6 hour trip days later, before recovering slightly to 4/10 back on campus." />
+        <figcaption>
+          Two low points, not one: the acute night-time blocker (2/10) and the routine trip itself (2/10).
+          Shows the pain isn't just about timing, it's the trip.
+        </figcaption>
+      </figure>
+      <p>
+        This scenario dramatizes food specifically because it was the more common urgent trigger in the survey
+        (5 of 7, vs. 3 of 7 for medical urgency). The underlying mechanism is identical either way: a need
+        that can't wait for daylight, with no way to act on it. That's why Campus Health Center Stock Check made
+        the Must-Have list despite the Journey Map itself being food-focused.
+      </p>
+    </section>
+
+    <section id="pain-point" class="block tint-red">
+      <h2>Pain Point (locked)</h2>
+      <p>
+        The root pain isn't timing. It's the 4-6 hour round trip itself. Students consistently resent losing
+        that much time to travel and shopping, time they'd rather spend studying, resting, or upskilling (said
+        independently by three separate people, unprompted). This is ordinary friction most of the time,
+        but it turns into a hard blocker when the need is time-sensitive and the trip literally can't happen,
+        most commonly late-night hunger (5 of 7 respondents). Same root problem, sharper edge case.
+      </p>
+    </section>
+
+    <section id="user-stories" class="block">
+      <h2>User Stories</h2>
+      <ol>
+        <li>As a student who loses 3-4+ hours every time I need groceries, medicine, or snacks, I want these
+          essentials without a dedicated town trip, so that time goes back into studying, resting, or
+          upskilling instead.</li>
+        <li>As a student who ends up batching a big supply run just to make the trip "worth it," I want to
+          combine what multiple people need into one trip, so the time and cost aren't repeated by everyone
+          individually every week.</li>
+        <li>As a student working late at night, I want access to at least basic essentials (food, first-aid)
+          without needing the full town trip, so a time-sensitive need doesn't go completely unmet just
+          because of when it happens.</li>
+      </ol>
+    </section>
+
+    <section id="features" class="block tint-blue">
+      <h2>Phase 2 — Feature / Content List (15-20 items)</h2>
+      <p>Pulled directly from the three User Stories above. That's the basis for the card sort below.</p>
+      <ol class="feature-grid">
+        <li>Group Ordering / Split Cart</li>
+        <li>On-Campus Pickup Point</li>
+        <li>Request Board (post what you need)</li>
+        <li>Trip Scheduler (join a town trip)</li>
+        <li>Volunteer Runner Matching</li>
+        <li>Delivery ETA Tracker</li>
+        <li>Nearby Shop Directory &amp; Hours</li>
+        <li>Campus Health Center Stock Check</li>
+        <li>Emergency Medicine Locator</li>
+        <li>Quick-Order Templates</li>
+        <li>Item Availability Checklist</li>
+        <li>Cost Splitter / Fee Calculator</li>
+        <li>Order Notifications</li>
+        <li>Runner/Fulfiller Ratings</li>
+        <li>Order History &amp; Reorder</li>
+        <li>Category Tags</li>
+        <li>Late-Night Micro-Stock Corner</li>
+        <li>Time-of-Day Feasibility Check</li>
+        <li>Payment &amp; Reimbursement Tracker</li>
+        <li>Group Chat / Coordination Thread</li>
+      </ol>
+    </section>
+
+    <section id="card-sort" class="block">
+      <h2>Card Sorting Insights</h2>
+      <p class="status">Hybrid Card Sort — 2 respondents so far, more pending</p>
+      <p>
+        Started as an Open sort, but the free-form version got a very low completion rate. People found
+        writing out their own categories too slow, so I switched to a Hybrid sort (6 broad candidate categories
+        + "Other") to make it a one-click-per-item grid instead. That's a methodology tradeoff, not a
+        shortcut: less category-purity, much higher completion rate.
+      </p>
+      <p>
+        With only 2 respondents so far, the sample is too small to trust on its own. They agreed outright
+        on 7 of 20 items: Group Ordering (Coordinate), On-Campus Pickup Point (Tracking), Delivery ETA Tracker
+        (Tracking), Cost Splitter (Payments), Order History (Tracking), Category Tags (Getting Essentials), and
+        Payment &amp; Reimbursement Tracker (Payments). They disagreed on the other 13, which is expected and
+        normal at n=2, not a failure of the method.
+      </p>
+      <p>
+        Rather than force a majority vote on a 2-person sample, the remaining 13 items were placed by function/name
+        logic and explicitly marked as a <strong>designer judgment call</strong> in the V1 tree below, most
+        notably Late-Night Micro-Stock Corner, which ties directly to the locked Pain Point. More
+        respondents are still being collected; this section updates if the pattern shifts.
+      </p>
+    </section>
+
+    <section id="ia-tree" class="block tint-yellow">
+      <h2>Tree Test &amp; IA Pivot</h2>
+      <p class="status">V1 IA Tree — built. Tree Test — run with 14 respondents</p>
+      <figure>
+        <img src="images/ia-tree.png"
+             alt="V1 Information Architecture tree with five top-level categories: Getting Essentials, Coordinate, Payments, Tracking, and Emergency. Items derived from card-sort agreement are marked with an asterisk; unmarked items were placed by designer judgment pending more data, including Late-Night Micro-Stock Corner under Emergency." />
+        <figcaption>
+          V1 tree, before the Tree Test pivot below. Starred items came from card-sort agreement; the
+          rest were designer judgment calls, deliberately targeted by the test.
+        </figcaption>
+      </figure>
+
+      <h3>Tree Test results (14 respondents, 4 tasks each)</h3>
+      <p>
+        Every task landed around <strong>57% success</strong>: not a suspicious 100%, and not a wipeout either.
+        The failures clustered in specific, explainable places rather than randomly, which is what actually
+        justifies a structural change instead of guessing.
+      </p>
+      <ul>
+        <li>
+          <strong>Late-Night Micro-Stock Corner (43% failed):</strong> misses scattered across "Getting
+          Essentials" and "Coordinate" instead of "Emergency." Late-night hunger doesn't read as an
+          "emergency" to everyone. For some it's just ordinary shopping, for others it's "ask a friend."
+        </li>
+        <li>
+          <strong>Cost Splitter (43% failed):</strong> most misses went to "Group Ordering." Three respondents
+          named this exact conflict unprompted in their comments: cost-splitting is mentally bundled with the
+          act of group ordering, not a separate destination.
+        </li>
+        <li>
+          <strong>Delivery ETA Tracker vs. Time-of-Day Feasibility Check:</strong> comments explicitly flagged
+          these two names as confusable ("option names felt quite similar").
+        </li>
+      </ul>
+
+      <h3>The pivot</h3>
+      <ol>
+        <li><strong>Cross-list Late-Night Micro-Stock Corner</strong> under both Emergency and Getting
+          Essentials, instead of forcing it into one home users don't agree on.</li>
+        <li><strong>Move Cost Splitter out of standalone Payments</strong> and nest it inside the Group Ordering
+          flow. Payments keeps only the Reimbursement Tracker.</li>
+        <li><strong>Rename for distinct action framing:</strong> "Delivery ETA Tracker" → "Track My Order";
+          "Time-of-Day Feasibility Check" → "Can I Order Right Now?"</li>
+      </ol>
+      <p>
+        The IA isn't perfect now either. But these three failures each got a specific fix instead of a
+        guess, which is the whole point of running the test in the first place.
+      </p>
+    </section>
+
+    <section id="moscow" class="block">
+      <h2>MoSCoW Prioritization</h2>
+      <p class="status">Locked — 4 Must-Haves, reasoning tied to the evidence above</p>
+
+      <h3>Must-Have (exactly 4)</h3>
+      <ul>
+        <li><strong>Late-Night Micro-Stock Corner</strong>: the single most evidence-backed feature. 5 of 7
+          survey respondents independently named late-night hunger/no-medicine as their top urgent unmet need,
+          it's the lowest point on the Journey Map's emotion line, and the Tree Test confirmed navigational
+          interest in it even where categorization was contested.</li>
+        <li><strong>Group Ordering / Split Cart</strong> (includes Cost Splitter, per the Tree Test pivot):
+          directly solves User Story 2 (share the time/cost burden instead of everyone repeating the trip
+          solo). This was also the one item both card-sort respondents agreed on without prompting,
+          the strongest card-sort signal available.</li>
+        <li><strong>Campus Health Center Stock Check</strong>: targets the medical-urgency slice (3 of 7
+          survey respondents), and was one of the Tree Test's more reliably-found items once labeled clearly.</li>
+        <li><strong>Delivery ETA Tracker</strong> ("Track My Order"): 3 of 7 respondents already use delivery
+          apps, but even they still logged 2+ hour waits and still hit the urgent-need failure. This fixes an
+          existing, adopted behavior rather than asking people to adopt something new.</li>
+      </ul>
+
+      <h3>Should-Have</h3>
+      <ul>
+        <li>Emergency Medicine Locator: the closest runner-up for the last Must-Have slot, see DFV Matrix below.</li>
+        <li>Request Board</li>
+        <li>Trip Scheduler</li>
+        <li>Nearby Shop Directory &amp; Hours</li>
+        <li>Payment &amp; Reimbursement Tracker</li>
+        <li>Item Availability Checklist</li>
+      </ul>
+
+      <h3>Could-Have</h3>
+      <ul>
+        <li>On-Campus Pickup Point (good idea, but depends on campus administration buy-in, not just software)</li>
+        <li>Volunteer Runner Matching</li>
+        <li>Group Chat / Coordination Thread</li>
+        <li>Quick-Order Templates</li>
+        <li>Order History &amp; Reorder</li>
+        <li>Time-of-Day Feasibility Check ("Can I Order Right Now?")</li>
+      </ul>
+
+      <h3>Won't-Have (this version), and why</h3>
+      <ul>
+        <li><strong>Runner/Fulfiller Ratings</strong>: meaningless at launch with zero rating history. Only
+          worth building once Volunteer Runner Matching has real usage to rate.</li>
+        <li><strong>Category Tags</strong>: internal organizational plumbing, not something a user directly
+          benefits from. Can be added invisibly later without being a roadmap item.</li>
+        <li><strong>Order Notifications</strong>: nobody, across either the interviews or the card
+          sort, complained about not knowing order status. No evidence pull, so it's cut rather than guessed at.</li>
+      </ul>
+    </section>
+
+    <section id="dfv" class="block tint-red">
+      <h2>DFV &amp; Business Reality</h2>
+      <p class="status">Scored — Delivery ETA Tracker vs. Emergency Medicine Locator</p>
+      <p>
+        These two were the hardest call for the last Must-Have slot in the MoSCoW above. Scored 1-5 on
+        Desirability, Feasibility, and Viability to make the decision objective instead of a gut call.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Delivery ETA Tracker</th>
+              <th scope="col">Emergency Medicine Locator</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Desirability</th>
+              <td><strong>5/5</strong>: 3 of 7 respondents already use delivery apps despite them not solving
+                the problem. Proven behavioral demand, not just a stated preference.</td>
+              <td><strong>4/5</strong>: 3 of 7 flagged medical urgency directly. Genuine need, but stated
+                rather than behavioral.</td>
+            </tr>
+            <tr>
+              <th scope="row">Feasibility</th>
+              <td><strong>3/5</strong>: real-time delivery-app API integration (Swiggy/Zomato/Dunzo) isn't
+                realistically accessible to a student project. The buildable version is a crowd-sourced/manual
+                status field. Works, but a scoped-down compromise.</td>
+              <td><strong>2/5</strong>: would need live off-campus pharmacy stock data, which nobody can access
+                programmatically. Only option is manual phone-checking or self-reported updates. Labor-heavy,
+                hard to keep accurate.</td>
+            </tr>
+            <tr>
+              <th scope="row">Viability</th>
+              <td><strong>3/5</strong>: sustainable at small scale, but crowd-sourced ETA data goes stale fast
+                without active maintenance or an incentive to keep it updated.</td>
+              <td><strong>2/5</strong>: wrong medicine-availability information during a genuine emergency isn't
+                just a bad UX moment, it's a liability risk for a v1 with no verification process.</td>
+            </tr>
+            <tr class="total-row">
+              <th scope="row">Total</th>
+              <td><strong>11/15</strong></td>
+              <td><strong>8/15</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Delivery ETA Tracker doesn't dominate on desirability alone (5 vs 4 is close). It wins on feasibility
+        and viability specifically because getting medicine-availability wrong carries safety and liability
+        weight that getting a delivery estimate wrong doesn't. That's why it got the Must-Have slot in the
+        MoSCoW above.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p><a href="https://hypertonny.github.io/UI-UX-Best-Practice/">hypertonny.github.io/UI-UX-Best-Practice</a></p>
+  </footer>
+
+</body>
+</html>
