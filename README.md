@@ -19,7 +19,7 @@ This project documents an end-to-end UX research and information architecture pr
 
 ### Phase 1: Empathy and Definition
 - **1A. Proto-Persona:** Initial assumptions prior to user interviews.
-- **1B. User Research:** 3 in-depth interviews with university commuters (*Rajdeep, Yash Badgur, Prasad Kakkar*).
+- **1B. User Research:** 3 in-depth interviews with university commuters (*Rajdeep, Yash, Parsad Kakad*).
 - **1C. Research-Validated Persona:** Updated persona reflecting actual user needs.
 - **1D. Empathy Map:** What students say, think, do, and feel.
 - **1E. User Journey Map:** 7-stage commuter journey with an emotional curve pinpointing the lowest dip.
