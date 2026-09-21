@@ -440,7 +440,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // 6. VIDEO STREAM SWITCHER CONTROLS (SCREEN 1 & STUDIO BAR)
   // =========================================================================
   const streamChips = document.querySelectorAll('.video-stream-selector .stream-chip');
-  const heroVideo = document.getElementById('heroTransitVideo');
   const heroSource = document.getElementById('heroVideoSource');
   const heroBadgeText = document.getElementById('heroVideoBadgeText');
   const slot1Caption = document.getElementById('slot1Caption');
