@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dailytogo — Next-Gen Student Transit & Campus Travel App</title>
+  <meta name="description" content="Production-level UI/UX for Dailytogo, the energetic student-focused campus travel and intercity transit tracking app.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="studio-wrapper">
+
+    <!-- Mobile Device Frame Container -->
+    <main class="phone-viewport-container">
+      <div class="phone-device" role="region" aria-label="DailyToGo Mobile Application">
+        
+        <!-- Hardware Island & Front Sensors -->
+        <div class="phone-notch-island" aria-hidden="true">
+          <div class="island-camera-lens"></div>
+          <div class="island-sensor"></div>
+        </div>
+
+        <!-- Mobile OS Status Bar -->
+        <div class="phone-status-bar" aria-hidden="true">
+          <span class="status-time" id="phoneStatusTime">9:41</span>
+          <div class="status-indicators">
+            <!-- 5G Signal SVG -->
+            <svg width="14" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V8"/><path d="M22 20V4"/></svg>
+            <!-- Wifi SVG -->
+            <svg width="14" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+            <!-- Battery SVG -->
+            <svg width="18" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="6" width="18" height="12" rx="2" ry="2"/><line x1="23" y1="10" x2="23" y2="14"/></svg>
+          </div>
+        </div>
+
+        <!-- Application Top Header (Persistent) -->
+        <header class="app-header">
+          <div class="brand-header-group">
+            <div class="brand-symbol" aria-hidden="true">
+              <!-- redBus-inspired Rounded Bus Glyph Mark SVG -->
+              <svg width="22" height="22" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 22 H8 M14 22 H18 M24 22 H28 C29.5 22 30 20 29.5 17 L28 10 C27.5 7.5 25 6 22 6 H8 C4.5 6 3 8 3 12 L3 19 C3 21 4 22 6 22"/>
+                <circle cx="11" cy="22" r="3.2"/>
+                <circle cx="21" cy="22" r="3.2"/>
+                <path d="M7 11 H24"/>
+              </svg>
+            </div>
+            <h1 class="brand-title">Daily<span>togo</span></h1>
+          </div>
+
+          <!-- Top Bell Notification Icon (from Wireframe) -->
+          <button type="button" class="header-action-btn" id="headerBellBtn" aria-label="Open Notifications">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+            <span class="notif-badge-pill" id="notifBadge" aria-label="3 new notifications">3</span>
+          </button>
+        </header>
+
+        <!-- Main Screen Scroll Area -->
+        <div class="screens-viewport">
+
+          <!-- ==========================================================
+               SCREEN 1: QUICK (WIREFRAME 1)
+               ========================================================== -->
+          <section class="app-screen active" id="screen-quick" aria-label="Quick Overview">
+            
+            <!-- Horizontal Route Destination Selector (2-Stop Point-to-Point Shuttle) -->
+            <div class="routes-scroller" role="tablist" aria-label="Campus Transit Corridors">
+              <button type="button" class="route-chip active" data-route="solanpada-karjat" role="tab" aria-selected="true">Solanpada ➔ Karjat</button>
+              <button type="button" class="route-chip" data-route="karjat-solanpada" role="tab">Karjat ➔ Solanpada</button>
+              <button type="button" class="route-chip" data-route="next-shuttle" role="tab">Next Non-Stop</button>
+              <button type="button" class="route-chip" data-route="night-run" role="tab">Night Exam Direct</button>
+            </div>
+
+            <!-- Main Hero Card with Wireframe "10m ~late" Status -->
+            <div class="transit-hero-card">
+              <div class="hero-top-row">
+                <div class="route-badge-container">
+                  <span class="route-label-sub" id="heroRouteSub">POINT-TO-POINT CAMPUS SHUTTLE • 2 STOPS DIRECT</span>
+                  <div class="route-title-main" id="heroRouteTitle">Solanpada (VBU) ➔ Karjat Direct</div>
+                </div>
+
+                <!-- Wireframe "10m ~late" Badge -->
+                <div class="late-status-badge" id="lateStatusBadge" role="status">
+                  <div class="late-time" id="lateTimeText">10m</div>
+                  <div class="late-label" id="lateLabelText">~late</div>
+                </div>
+              </div>
+
+              <!-- Origin -> Destination Selector (VBU Campus <-> Karjat S.T. Stand) -->
+              <div class="origin-dest-bar">
+                <div class="station-pill" id="originStation">Solanpada (VBU Campus)</div>
+                <button type="button" class="swap-route-btn" id="swapRouteBtn" aria-label="Swap Origin and Destination">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                    <polyline points="12 5 19 12 12 19"/>
+                  </svg>
+                </button>
+                <div class="station-pill" id="destStation">Karjat S.T. Stand (Depot)</div>
+              </div>
+
+              <!-- Departure and Estimated Arrival Grid -->
+              <div class="departure-arrival-grid">
+                <div class="metric-col">
+                  <span class="metric-label">Next Departure</span>
+                  <span class="metric-val" id="nextDepVal">2:15 PM</span>
+                  <span class="metric-sub" id="originSubVal">VBU Main Porch Bay 1</span>
+                </div>
+                <div class="metric-col">
+                  <span class="metric-label">Est. Arrival</span>
+                  <span class="metric-val" id="estArrVal">3:00 PM</span>
+                  <span class="metric-sub" id="destSubVal">Karjat Depot Bay 3</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Live Departure Countdown Ticker -->
+            <div class="countdown-pill-banner">
+              <div class="countdown-left">
+                <svg class="live-beacon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <div>
+                  <div style="font-size: 11px; font-weight: 700; color: var(--text-main);">Live Boarding Countdown</div>
+                  <div class="countdown-digits" id="liveCountdownTimer">Boarding in 18m</div>
+                </div>
+              </div>
+              <button type="button" class="quick-action-cta" onclick="alert('Student VBU Bus Pass Verified! Ready for boarding at Solanpada gate.')">
+                Show Pass
+              </button>
+            </div>
+
+            <!-- Campus Shuttle Live Video -->
+            <div class="animation-slot-wrapper">
+              <div class="transit-video-frame">
+                <video id="heroTransitVideo" class="transit-slot-video" autoplay loop muted playsinline preload="auto">
+                  <source id="heroVideoSource" src="bus to karjat.MP4" type="video/mp4">
+                </video>
+              </div>
+            </div>
+
+          </section>
+
+          <!-- ==========================================================
+               SCREEN 2: LIVE MAP & STOPS TIMELINE (WIREFRAME 2 & 6)
+               ========================================================== -->
+          <section class="app-screen" id="screen-live" aria-label="Live Bus Tracking">
+
+            <!-- Interactive Live Map Canvas Container -->
+            <div class="live-map-card">
+
+              <!-- Map Background Radar SVG Graphic (Direct 2-Stop Corridor) -->
+              <svg class="map-svg-grid" viewBox="0 0 380 250" fill="none" preserveAspectRatio="none">
+                <!-- Stylized Solid Map Streets (NO GRADIENTS) -->
+                <rect width="380" height="250" fill="#0D121B"/>
+                <path d="M0 60 H380 M0 140 H380 M0 210 H380" stroke="#1A2232" stroke-width="14"/>
+                <path d="M90 0 V250 M220 0 V250 M320 0 V250" stroke="#1A2232" stroke-width="14"/>
+                
+                <!-- Scenic River & Ghat Land Contours -->
+                <path d="M-20 180 Q100 130 200 190 T390 120" stroke="#152136" stroke-width="26"/>
+                
+                <!-- Direct Non-Stop Route Line connecting Karjat to Solanpada -->
+                <path d="M50 190 L130 150 L220 120 L320 70" stroke="#0091EA" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                
+                <!-- Stop 1: Karjat Station Pin -->
+                <circle cx="50" cy="190" r="8" fill="#10B981" stroke="#FFFFFF" stroke-width="3"/>
+                <text x="50" y="215" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" text-anchor="middle">Karjat Station</text>
+                
+                <!-- Stop 2: Solanpada (VBU Campus) Pin -->
+                <circle cx="320" cy="70" r="8" fill="#CCFF00" stroke="#000000" stroke-width="3"/>
+                <text x="315" y="52" fill="#CCFF00" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="800" text-anchor="middle">Solanpada (VBU)</text>
+
+                <!-- Live Direct Transit Bus moving along the route -->
+                <g transform="translate(195, 128)">
+                  <circle cx="0" cy="0" r="16" fill="#0091EA" opacity="0.3">
+                    <animate attributeName="r" values="10;22;10" dur="2s" repeatCount="indefinite"/>
+                  </circle>
+                  <circle cx="0" cy="0" r="9" fill="#0091EA" stroke="#FFFFFF" stroke-width="2.5"/>
+                  <!-- Mini bus glyph inside marker -->
+                  <rect x="-4" y="-3" width="8" height="6" rx="1" fill="#FFA000"/>
+                </g>
+              </svg>
+
+              <!-- Map Header Overlay -->
+              <div class="map-header-overlay">
+                <div class="bus-status-tag">
+                  <span class="brand-dot"></span>
+                  <span>Shuttle VBU-01 • Direct Non-Stop</span>
+                </div>
+                <div class="bus-speed-badge" id="liveSpeedVal">48 km/h</div>
+              </div>
+
+              <!-- Map Bottom Refresh Button (Matching Wireframe: 'refresh') -->
+              <div class="map-bottom-controls">
+                <button type="button" class="btn-wireframe-refresh" id="mapRefreshBtn">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+                  </svg>
+                  <span>refresh</span>
+                </button>
+              </div>
+
+              <!-- MAP ERROR / EMPTY STATE OVERLAY (From Wireframe 6: "Turn location on to enable map preview") -->
+              <div class="map-disabled-state" id="mapDisabledState">
+                <div class="disabled-icon-box">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="1" y1="1" x2="23" y2="23"/>
+                    <path d="M21 10c0 7-9 13-9 13s-1.87-1.25-3.6-3.15"/>
+                    <path d="M12.97 4.07A8.72 8.72 0 0 1 21 10c0 1.25-.3 2.45-.84 3.52"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                </div>
+                <p class="disabled-title">Turn location on to enable map preview</p>
+                <button type="button" class="btn-error-retry" id="errorRetryBtn">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                  Error retry
+                </button>
+              </div>
+
+            </div>
+
+            <!-- Live Transit Video Feed -->
+            <div class="animation-slot-wrapper">
+              <div class="transit-video-frame">
+                <video id="liveHighwayVideo" class="transit-slot-video" autoplay loop muted playsinline preload="auto">
+                  <source src="bus to solanpada.MP4" type="video/mp4">
+                </video>
+              </div>
+            </div>
+
+            <!-- Route Stop Progression Timeline (Pure 2-Stop Direct Route: Karjat ⇄ Solanpada) -->
+            <div class="route-stops-card">
+              <div class="stops-card-title">
+                <span>Direct Route Progression</span>
+                <span class="stops-card-badge" style="background-color: var(--brand-primary); color: #FFFFFF;">2 Stops Direct</span>
+              </div>
+
+              <!-- Point-to-Point Banner -->
+              <div style="background-color: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 8px 12px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+                <span style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--accent-volt);">
+                  POINT-TO-POINT CAMPUS SHUTTLE
+                </span>
+                <span style="font-family: var(--font-mono); font-size: 10px; color: var(--text-dim);">
+                  No intermediate stops
+                </span>
+              </div>
+
+              <div class="timeline-stops-list">
+                
+                <!-- Stop 1: Departure Terminal -->
+                <div class="timeline-stop-item completed">
+                  <div class="stop-left-group">
+                    <span class="stop-marker-dot" style="background-color: #10B981; border-color: #FFFFFF;"></span>
+                    <div>
+                      <div class="stop-name" id="timelineOriginName">Solanpada ST Bus Stop</div>
+                      <div class="stop-type-sub" id="timelineOriginSub">VBU Campus Porch Bay 1 • Direct Non-Stop</div>
+                    </div>
+                  </div>
+                  <span class="stop-time-val" id="timelineOriginTime">02:15 PM</span>
+                </div>
+
+                <!-- Mid-Transit Indicator -->
+                <div class="timeline-stop-item current" style="border-left: 2px dashed var(--accent-volt); margin-left: 6px; padding-left: 14px;">
+                  <div class="stop-left-group">
+                    <span class="stop-marker-dot" style="background-color: var(--accent-volt); border-color: #000000;"></span>
+                    <div>
+                      <div class="stop-name" style="color: var(--accent-volt);">Direct Transit In Progress</div>
+                      <div class="stop-type-sub" style="color: var(--text-muted); font-weight: 600;">Ghat Highway Corridor • 24 km Direct • Non-Stop</div>
+                    </div>
+                  </div>
+                  <span class="stop-time-val" style="color: var(--accent-volt); font-weight: 800;">48 km/h</span>
+                </div>
+
+                <!-- Stop 2: Final Destination -->
+                <div class="timeline-stop-item">
+                  <div class="stop-left-group">
+                    <span class="stop-marker-dot" style="background-color: var(--accent-volt); border-color: #000000;"></span>
+                    <div>
+                      <div class="stop-name" id="timelineDestName">Karjat S.T. Stand (Depot)</div>
+                      <div class="stop-type-sub" id="timelineDestSub" style="color: var(--accent-volt); font-weight: 700;">Suburban Rail Interchange • Bay 3</div>
+                    </div>
+                  </div>
+                  <span class="stop-time-val" id="timelineDestTime">03:00 PM</span>
+                </div>
+
+              </div>
+
+            </div>
+
+          </section>
+
+          <!-- ==========================================================
+               SCREEN 3: TIMINGS (WIREFRAME 3)
+               ========================================================== -->
+          <section class="app-screen" id="screen-timings" aria-label="Campus Bus Schedules">
+
+            <div class="timings-header-bar">
+              <div class="section-group-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span>Daily Bus Schedule</span>
+              </div>
+              <span class="stops-card-badge">Mon – Sat</span>
+            </div>
+
+            <div class="schedule-grid-container">
+
+              <!-- BLOCK 1: Departing from Karjat (Karjat ➔ Solanpada) -->
+              <div class="schedule-block">
+                <div class="schedule-direction-label">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 18 15 12 9 6"/></svg>
+                  <span>Departing from Karjat (Karjat ➔ Solanpada)</span>
+                </div>
+
+                <!-- 8:30 AM to 9:45 AM -->
+                <div class="schedule-card" data-direction="karjat-solanpada" data-index="0" role="button" tabindex="0">
+                  <div class="sched-left">
+                    <div class="sched-time-badge">8:30 AM</div>
+                    <div class="sched-meta">
+                      <div class="sched-route-name">8:30 AM ➔ 9:45 AM</div>
+                      <div class="sched-subtext">Karjat Depot Bay 4 • Arr 9:45 AM at Solanpada (VBU)</div>
+                    </div>
+                  </div>
+                  <div class="sched-right">
+                    <span class="status-pill-solid ontime">ON TIME</span>
+                    <button type="button" class="bell-reminder-icon-btn" title="Set departure alarm" aria-label="Set reminder for 8:30 AM">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 11:30 AM to 12:45 PM -->
+                <div class="schedule-card" data-direction="karjat-solanpada" data-index="1" role="button" tabindex="0">
+                  <div class="sched-left">
+                    <div class="sched-time-badge">11:30 AM</div>
+                    <div class="sched-meta">
+                      <div class="sched-route-name">11:30 AM ➔ 12:45 PM</div>
+                      <div class="sched-subtext">Midday Campus Connector • Direct to VBU Gate</div>
+                    </div>
+                  </div>
+                  <div class="sched-right">
+                    <span class="status-pill-solid ontime">ON TIME</span>
+                    <button type="button" class="bell-reminder-icon-btn" title="Departure alarm active" aria-label="Set reminder for 11:30 AM">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 1:00 PM to 2:15 PM -->
+                <div class="schedule-card" data-direction="karjat-solanpada" data-index="2" role="button" tabindex="0">
+                  <div class="sched-left">
+                    <div class="sched-time-badge">1:00 PM</div>
+                    <div class="sched-meta">
+                      <div class="sched-route-name">1:00 PM ➔ 2:15 PM</div>
+                      <div class="sched-subtext">Post-Lunch Shuttle • Depot Bay 3 • Arr 2:15 PM</div>
+                    </div>
+                  </div>
+                  <div class="sched-right">
+                    <span class="status-pill-solid ontime">ON TIME</span>
+                    <button type="button" class="bell-reminder-icon-btn" title="Set departure alarm" aria-label="Set reminder for 1:00 PM">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 4:15 PM to 5:30 PM -->
+                <div class="schedule-card" data-direction="karjat-solanpada" data-index="3" role="button" tabindex="0">
+                  <div class="sched-left">
+                    <div class="sched-time-badge">4:15 PM</div>
+                    <div class="sched-meta">
+                      <div class="sched-route-name">4:15 PM ➔ 5:30 PM</div>
+                      <div class="sched-subtext">Evening Campus Return • Sync with Mumbai Local</div>
+                    </div>
+                  </div>
+                  <div class="sched-right">
+                    <span class="status-pill-solid ontime">ON TIME</span>
+                    <button type="button" class="bell-reminder-icon-btn" title="Set departure alarm" aria-label="Set reminder for 4:15 PM">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 7:30 PM to 9:00 PM -->
+                <div class="schedule-card" data-direction="karjat-solanpada" data-index="4" role="button" tabindex="0">
+                  <div class="sched-left">
+                    <div class="sched-time-badge">7:30 PM</div>
+                    <div class="sched-meta">
+                      <div class="sched-route-name">7:30 PM ➔ 9:00 PM</div>
+                      <div class="sched-subtext">Night Campus Shuttle • Last Scheduled Return</div>
+                    </div>
+                  </div>
+                  <div class="sched-right">
+                    <span class="status-pill-solid ontime">ON TIME</span>
+                    <button type="button" class="bell-reminder-icon-btn" title="Set departure alarm" aria-label="Set reminder for 7:30 PM">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Campus Terminal Video Feed -->
+              <div class="animation-slot-wrapper">
+                <div class="transit-video-frame">
+                  <video id="boardingVideo" class="transit-slot-video" autoplay loop muted playsinline preload="auto">
+                    <source src="Students_boarding_1080p.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+
+              <!-- BLOCK 2: Departing from Solanpada (Solanpada ➔ Karjat) -->
+              <div class="schedule-block">
+                <div class="schedule-direction-label">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 18 15 12 9 6"/></svg>
+                  <span>Departing from Solanpada (Solanpada ➔ Karjat)</span>
+                </div>
+
+                <!-- 6:00 AM to 8:30 AM -->
+                <div class="schedule-card" data-direction="solanpada-karjat" data-index="0" role="button" tabindex="0">
+                  <div class="sched-left">
+                    <div class="sched-time-badge">6:00 AM</div>
+                    <div class="sched-meta">
+                      <div class="sched-route-name">6:00 AM ➔ 8:30 AM</div>
+                      <div class="sched-subtext">Early Morning Express • Direct to Karjat Station</div>
+                    </div>
+                  </div>
+                  <div class="sched-right">
+                    <span class="status-pill-solid ontime">ON TIME</span>
+                    <button type="button" class="bell-reminder-icon-btn" title="Set departure alarm" aria-label="Set reminder for 6:00 AM">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 9:45 AM to 11:30 AM -->
+                <div class="schedule-card" data-direction="solanpada-karjat" data-index="1" role="button" tabindex="0">
+                  <div class="sched-left">
+                    <div class="sched-time-badge">9:45 AM</div>
+                    <div class="sched-meta">
+                      <div class="sched-route-name">9:45 AM ➔ 11:30 AM</div>
+                      <div class="sched-subtext">Morning Academic Shuttle • VBU Main Porch Bay 1</div>
+                    </div>
+                  </div>
+                  <div class="sched-right">
+                    <span class="status-pill-solid ontime">ON TIME</span>
+                    <button type="button" class="bell-reminder-icon-btn" title="Set departure alarm" aria-label="Set reminder for 9:45 AM">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 12:45 PM to 1:00 PM -->
+                <div class="schedule-card" data-direction="solanpada-karjat" data-index="2" role="button" tabindex="0">
+                  <div class="sched-left">
+                    <div class="sched-time-badge">12:45 PM</div>
+                    <div class="sched-meta">
+                      <div class="sched-route-name">12:45 PM ➔ 1:00 PM</div>
+                      <div class="sched-subtext">Mid-Day Station Connector • Direct to Karjat Depot</div>
+                    </div>
+                  </div>
+                  <div class="sched-right">
+                    <span class="status-pill-solid ontime">ON TIME</span>
+                    <button type="button" class="bell-reminder-icon-btn" title="Set departure alarm" aria-label="Set reminder for 12:45 PM">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 2:15 PM to 4:15 PM -->
+                <div class="schedule-card next-bus active-selected-bus" data-direction="solanpada-karjat" data-index="3" role="button" tabindex="0">
+                  <div class="sched-left">
+                    <div class="sched-time-badge">2:15 PM</div>
+                    <div class="sched-meta">
+                      <div class="sched-route-name">2:15 PM ➔ 4:15 PM</div>
+                      <div class="sched-subtext">Afternoon Campus Exit • Solanpada Porch Bay 2</div>
+                    </div>
+                  </div>
+                  <div class="sched-right">
+                    <span class="status-pill-solid ontime">NEXT BUS</span>
+                    <button type="button" class="bell-reminder-icon-btn active" title="Departure alarm active" aria-label="Cancel reminder for 2:15 PM">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 5:30 PM to 6:30 PM -->
+                <div class="schedule-card" data-direction="solanpada-karjat" data-index="4" role="button" tabindex="0">
+                  <div class="sched-left">
+                    <div class="sched-time-badge">5:30 PM</div>
+                    <div class="sched-meta">
+                      <div class="sched-route-name">5:30 PM ➔ 6:30 PM</div>
+                      <div class="sched-subtext">Evening Peak Transit • Direct to Karjat Station</div>
+                    </div>
+                  </div>
+                  <div class="sched-right">
+                    <span class="status-pill-solid ontime">ON TIME</span>
+                    <button type="button" class="bell-reminder-icon-btn" title="Set departure alarm" aria-label="Set reminder for 5:30 PM">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </section>
+
+          <!-- ==========================================================
+               SCREEN 4: ACCOUNT / PROFILE & SETTINGS (WIREFRAME 4 & 7)
+               ========================================================== -->
+          <section class="app-screen" id="screen-account" aria-label="Student Profile & Settings">
+
+            <!-- Profile Card -->
+            <div class="profile-card-container">
+              
+              <div class="profile-top-bar">
+                <div class="profile-avatar-wrapper">
+                  <div class="avatar-circle">
+                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  </div>
+                  <!-- Wireframe 'update' button on avatar -->
+                  <button type="button" class="avatar-update-btn" id="avatarUpdateTrigger" title="Upload new student avatar">update</button>
+                </div>
+
+                <div class="profile-header-text">
+                  <div class="student-name-title">Aarav Sharma</div>
+                  <div class="student-id-sub">VU2024-ENG-082 • SEM IV</div>
+                </div>
+              </div>
+
+              <!-- Input 1: Name (From Wireframe) -->
+              <div class="form-group">
+                <label class="form-label" for="profileNameInput">Name</label>
+                <input class="student-text-input" type="text" id="profileNameInput" value="Aarav Sharma">
+              </div>
+
+              <!-- Input 2: Address / Hostel (From Wireframe) -->
+              <div class="form-group">
+                <label class="form-label" for="profileAddressInput">Address / Campus Hostel</label>
+                <input class="student-text-input" type="text" id="profileAddressInput" value="Hostel Block B, Room 304, VU Campus">
+              </div>
+
+              <!-- Wireframe Update Button -->
+              <button type="button" class="btn-update-profile" id="updateProfileBtn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Save profile changes
+              </button>
+
+              <!-- WIREFRAME SUCCESS STATE (Wireframe 7: "profile updated successfully") -->
+              <div class="toast-msg-box success" id="profileSuccessToast" role="alert">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>profile updated successfully</span>
+              </div>
+
+              <!-- WIREFRAME ERROR STATE (Wireframe 7: "profile upload failed max limit 5mb") -->
+              <div class="toast-msg-box error" id="profileErrorToast" role="alert">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>profile upload failed max limit 5mb</span>
+              </div>
+
+            </div>
+
+            <!-- Wireframe Section: "Notification" -->
+            <div class="settings-section-card">
+              <div class="settings-card-header">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <span>Notification</span>
+              </div>
+
+              <!-- Bus Reminder Toggle -->
+              <div class="toggle-item-row">
+                <div class="toggle-text-group">
+                  <div class="toggle-label">Bus Reminder</div>
+                  <div class="toggle-desc">Alert 15 mins prior to campus departure</div>
+                </div>
+                <label class="switch-input">
+                  <input type="checkbox" checked aria-label="Toggle Bus Reminder">
+                  <span class="switch-slider"></span>
+                </label>
+              </div>
+
+              <!-- Bus Status Toggle -->
+              <div class="toggle-item-row">
+                <div class="toggle-text-group">
+                  <div class="toggle-label">Bus Status</div>
+                  <div class="toggle-desc">Real-time arrival & seat occupancy updates</div>
+                </div>
+                <label class="switch-input">
+                  <input type="checkbox" checked aria-label="Toggle Bus Status">
+                  <span class="switch-slider"></span>
+                </label>
+              </div>
+
+              <!-- Route Updates Toggle -->
+              <div class="toggle-item-row">
+                <div class="toggle-text-group">
+                  <div class="toggle-label">Route Updates</div>
+                  <div class="toggle-desc">Detours, ghat highway blocks and delays</div>
+                </div>
+                <label class="switch-input">
+                  <input type="checkbox" aria-label="Toggle Route Updates">
+                  <span class="switch-slider"></span>
+                </label>
+              </div>
+
+            </div>
+
+            <!-- Wireframe Section: "Alerts" -->
+            <div class="settings-section-card">
+              <div class="settings-card-header">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>Alerts</span>
+              </div>
+
+              <!-- Weather Alert Toggle -->
+              <div class="toggle-item-row">
+                <div class="toggle-text-group">
+                  <div class="toggle-label">Weather Alert</div>
+                  <div class="toggle-desc">Heavy rainfall and ghat road waterlogging warnings</div>
+                </div>
+                <label class="switch-input">
+                  <input type="checkbox" checked aria-label="Toggle Weather Alert">
+                  <span class="switch-slider"></span>
+                </label>
+              </div>
+
+              <!-- Cancellation Alert Toggle -->
+              <div class="toggle-item-row">
+                <div class="toggle-text-group">
+                  <div class="toggle-label">Cancellation Alert</div>
+                  <div class="toggle-desc">Emergency schedule suspensions & refunds</div>
+                </div>
+                <label class="switch-input">
+                  <input type="checkbox" checked aria-label="Toggle Cancellation Alert">
+                  <span class="switch-slider"></span>
+                </label>
+              </div>
+
+            </div>
+
+          </section>
+
+          <!-- ==========================================================
+               SCREEN 5: NOTIFICATIONS (WIREFRAME 5)
+               ========================================================== -->
+          <section class="app-screen" id="screen-notifications" aria-label="Transit Alerts & Announcements">
+
+            <div class="timings-header-bar">
+              <div class="section-group-title">
+                <button type="button" class="tool-chip-btn" id="notifBackBtn" style="padding: 4px 8px; margin-right: 4px;" title="Back to Quick tab">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <span>Notifications</span>
+              </div>
+              <button type="button" class="tool-chip-btn" onclick="document.getElementById('notifBadge').textContent='0'; alert('All transit notices marked as read.')">
+                Mark all read
+              </button>
+            </div>
+
+            <!-- Transit Advisory Motion Graphic -->
+            <div class="animation-slot-wrapper" style="background-color: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); padding: 14px 0; display: flex; justify-content: center; align-items: center;">
+              <svg width="50" height="32" viewBox="0 0 60 40" fill="none">
+                <path d="M30 6 A12 12 0 0 0 18 18 C18 26 12 30 12 30 H48 S42 26 42 18 A12 12 0 0 0 30 6" fill="#1A2232" stroke="#CCFF00" stroke-width="2"/>
+                <circle cx="30" cy="34" r="3" fill="#CCFF00"/>
+                <path d="M10 14 Q6 18 10 22 M50 14 Q54 18 50 22" stroke="#EF4444" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+
+            <!-- Notifications Feed matching exact text from wireframe 5 -->
+            <div class="notifs-list-container">
+
+              <!-- Wireframe Item 1: "Bus delayed by 20min" -->
+              <article class="notif-card urgent">
+                <div class="notif-icon-box delay" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <div class="notif-body">
+                  <div class="notif-title-row">
+                    <h2 class="notif-title">Bus delayed by 20min</h2>
+                    <span class="notif-time-stamp">5m ago</span>
+                  </div>
+                  <p class="notif-desc-text">
+                    Shuttle VB-04 running 20m late due to heavy traffic at Jamrung toll bridge. Revised campus arrival time is 1:50 PM.
+                  </p>
+                </div>
+              </article>
+
+              <!-- Wireframe Item 2: "Bus cancelled cause of heavy rainfall" -->
+              <article class="notif-card urgent">
+                <div class="notif-icon-box cancel" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </div>
+                <div class="notif-body">
+                  <div class="notif-title-row">
+                    <h2 class="notif-title">Bus cancelled cause of heavy rainfall</h2>
+                    <span class="notif-time-stamp">25m ago</span>
+                  </div>
+                  <p class="notif-desc-text">
+                    Karjat-to-Campus 5:30 PM evening service suspended due to flash ghat road waterlogging. Next available coach scheduled for 7:00 PM.
+                  </p>
+                </div>
+              </article>
+
+              <!-- Wireframe Item 3: "10% off , festive exam discount" -->
+              <article class="notif-card promo">
+                <div class="notif-icon-box offer" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+                </div>
+                <div class="notif-body">
+                  <div class="notif-title-row">
+                    <h2 class="notif-title">10% off, festive exam discount</h2>
+                    <span class="notif-time-stamp">2h ago</span>
+                  </div>
+                  <p class="notif-desc-text">
+                    Exclusive student semester transit pass discount! Use code <strong>VUEXAMS</strong> at campus kiosk for 10% off monthly shuttle credits.
+                  </p>
+                </div>
+              </article>
+
+              <!-- Bonus student alert -->
+              <article class="notif-card">
+                <div class="notif-icon-box" style="background-color: var(--brand-primary); color: #FFFFFF;" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                </div>
+                <div class="notif-body">
+                  <div class="notif-title-row">
+                    <h2 class="notif-title">Night Library Shuttle Active</h2>
+                    <span class="notif-time-stamp">Yesterday</span>
+                  </div>
+                  <p class="notif-desc-text">
+                    Extended exam week night campus perimeter shuttle running between Hostel blocks and Central Library until 11:30 PM tonight.
+                  </p>
+                </div>
+              </article>
+
+            </div>
+
+          </section>
+
+        </div>
+
+        <!-- Wireframe Bottom Navigation Bar: quick | live | timings | account -->
+        <nav class="phone-bottom-nav" aria-label="Main Navigation">
+          <!-- Tab 1: quick -->
+          <button type="button" class="nav-tab-item active" data-target="quick">
+            <svg class="tab-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+            <span class="tab-label">quick</span>
+          </button>
+
+          <!-- Tab 2: live -->
+          <button type="button" class="nav-tab-item" data-target="live">
+            <svg class="tab-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+            </svg>
+            <span class="tab-label">live</span>
+          </button>
+
+          <!-- Tab 3: timings -->
+          <button type="button" class="nav-tab-item" data-target="timings">
+            <svg class="tab-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <span class="tab-label">timings</span>
+          </button>
+
+          <!-- Tab 4: account -->
+          <button type="button" class="nav-tab-item" data-target="account">
+            <svg class="tab-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span class="tab-label">account</span>
+          </button>
+        </nav>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
