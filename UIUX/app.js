@@ -63,27 +63,55 @@ document.addEventListener('DOMContentLoaded', () => {
   let countdownInterval = null;
 
   // =========================================================================
-  // 2. VIDEO MUTE & AUTOPLAY ENFORCEMENT (ALL 4 VIDEOS)
+  // 2. VIDEO PLAYBACK ENGINE (SAFE LAZY-PLAY TO PREVENT BROWSER BLOCKING)
   // =========================================================================
-  function enforceMutedVideos() {
+  const heroVideo = document.getElementById('heroTransitVideo');
+  const highwayVideo = document.getElementById('liveHighwayVideo');
+  const boardingVideo = document.getElementById('boardingVideo');
+
+  function safePlay(v) {
+    if (!v) return;
+    v.muted = true;
+    v.defaultMuted = true;
+    v.volume = 0;
+    try {
+      const p = v.play();
+      if (p !== undefined) {
+        p.catch(() => {});
+      }
+    } catch (_) {}
+  }
+
+  function setupVideos() {
     const allVideos = document.querySelectorAll('video');
     allVideos.forEach(v => {
       v.muted = true;
-      v.volume = 0;
       v.defaultMuted = true;
+      v.volume = 0;
       v.setAttribute('muted', '');
       v.setAttribute('playsinline', '');
-      v.play().catch(() => {
-        // Autoplay policy fallback: re-try on first user interaction
-        const resumePlay = () => {
-          v.play().catch(() => {});
-          document.removeEventListener('click', resumePlay);
-        };
-        document.addEventListener('click', resumePlay, { once: true });
-      });
+      v.setAttribute('webkit-playsinline', '');
     });
+
+    // Auto-retry when first frame is ready
+    if (heroVideo) {
+      heroVideo.addEventListener('canplay', () => safePlay(heroVideo), { once: true });
+      heroVideo.addEventListener('loadeddata', () => safePlay(heroVideo), { once: true });
+      safePlay(heroVideo);
+    }
   }
-  enforceMutedVideos();
+  setupVideos();
+
+  // Global user interaction unlock for strict autoplay policies
+  const unlockAutoplay = () => {
+    const activeScreen = document.querySelector('.app-screen.active');
+    if (activeScreen && activeScreen.id === 'screen-quick' && heroVideo && heroVideo.paused) {
+      safePlay(heroVideo);
+    }
+  };
+  ['click', 'touchstart', 'pointerdown', 'keydown'].forEach(evt => {
+    window.addEventListener(evt, unlockAutoplay, { once: true, passive: true });
+  });
 
   // =========================================================================
   // 3. NAVIGATION & SCREEN SWITCHER
@@ -109,6 +137,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (screenId === 'notifications' && notifBadge) {
       notifBadge.textContent = '3';
+    }
+
+    // Play ONLY the active screen's video, pause hidden ones to conserve decoder
+    if (screenId === 'quick') {
+      safePlay(heroVideo);
+      if (highwayVideo) highwayVideo.pause();
+      if (boardingVideo) boardingVideo.pause();
+    } else if (screenId === 'live') {
+      safePlay(highwayVideo);
+      if (heroVideo) heroVideo.pause();
+      if (boardingVideo) boardingVideo.pause();
+    } else if (screenId === 'timings') {
+      safePlay(boardingVideo);
+      if (heroVideo) heroVideo.pause();
+      if (highwayVideo) highwayVideo.pause();
+    } else {
+      if (heroVideo) heroVideo.pause();
+      if (highwayVideo) highwayVideo.pause();
+      if (boardingVideo) boardingVideo.pause();
     }
   }
 
@@ -236,27 +283,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (heroVideo) {
-      heroVideo.muted = true;
-      heroVideo.defaultMuted = true;
-      heroVideo.volume = 0;
-      
-      const currentSrc = heroVideo.getAttribute('src') || (heroSource ? heroSource.getAttribute('src') : '');
-      if (!currentSrc || !currentSrc.includes(dir.video)) {
+      const currentSrc = heroVideo.getAttribute('src') || '';
+      if (!currentSrc.includes(dir.video)) {
         heroVideo.src = dir.video;
         heroVideo.setAttribute('src', dir.video);
-        if (heroSource) {
-          heroSource.src = dir.video;
-          heroSource.setAttribute('src', dir.video);
-        }
         heroVideo.load();
       }
-      
-      const playPromise = heroVideo.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {});
-      }
-      if (heroBadgeText) heroBadgeText.textContent = dir.videoBadge;
-      if (slot1Caption) slot1Caption.textContent = dir.videoCaption;
+      safePlay(heroVideo);
     }
 
     // Update Stream Chips in Slot 1
