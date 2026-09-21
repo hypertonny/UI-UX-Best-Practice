@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
       dest: 'Solanpada (VBU Campus)',
       originBay: 'Karjat S.T. Depot Bay 4 • Railway Interchange',
       destBay: 'Solanpada VBU Main Porch Bay 1',
-      video: 'bus to solanpada.MP4',
+      video: 'bus_to_solanpada.mp4',
       videoBadge: 'FEED 2: SHUTTLE TO SOLANPADA (VBU)',
       videoCaption: 'VBU Shuttle Heading to Solanpada Campus (Direct 2-Stop)',
       trips: [
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
       dest: 'Karjat S.T. Stand (Depot)',
       originBay: 'VBU Main Porch Bay 1',
       destBay: 'Karjat S.T. Depot Bay 3 • Railway Interchange',
-      video: 'bus to karjat.MP4',
+      video: 'bus_to_karjat.mp4',
       videoBadge: 'FEED 1: SHUTTLE TO KARJAT DEPOT',
       videoCaption: 'VBU Shuttle Cruising to Karjat (Direct 2-Stop)',
       trips: [
@@ -235,15 +235,25 @@ document.addEventListener('DOMContentLoaded', () => {
       slot1TagText.textContent = `LIVE BUS FEED • ${dir.directionLabel.toUpperCase()}`;
     }
 
-    if (heroVideo && heroSource) {
-      // Check if current video source is already playing this direction
-      const currentSrc = heroSource.getAttribute('src');
-      if (currentSrc !== dir.video) {
-        heroSource.setAttribute('src', dir.video);
+    if (heroVideo) {
+      heroVideo.muted = true;
+      heroVideo.defaultMuted = true;
+      heroVideo.volume = 0;
+      
+      const currentSrc = heroVideo.getAttribute('src') || (heroSource ? heroSource.getAttribute('src') : '');
+      if (!currentSrc || !currentSrc.includes(dir.video)) {
+        heroVideo.src = dir.video;
+        heroVideo.setAttribute('src', dir.video);
+        if (heroSource) {
+          heroSource.src = dir.video;
+          heroSource.setAttribute('src', dir.video);
+        }
         heroVideo.load();
-        heroVideo.muted = true;
-        heroVideo.volume = 0;
-        heroVideo.play().catch(() => {});
+      }
+      
+      const playPromise = heroVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
       }
       if (heroBadgeText) heroBadgeText.textContent = dir.videoBadge;
       if (slot1Caption) slot1Caption.textContent = dir.videoCaption;
