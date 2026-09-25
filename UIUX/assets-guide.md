@@ -16,7 +16,7 @@ The motive of the app is strictly a **direct, non-stop campus university shuttle
 1. **Karjat S.T. Stand (Depot / Railway Station)** — Departure & Arrival hub connecting Mumbai & Pune suburban trains.
 2. **Solanpada ST Bus Stop (Vijaybhoomi University Campus Gate)** — Direct campus terminal.
 
-There are **no intermediate boarding or drop stops**. The shuttle runs directly between these two points across a scenic 24 km ghat highway corridor (~45 min transit time).
+There are **no intermediate boarding or drop stops**. The shuttle runs directly between these two points across a scenic 24 km ghat highway corridor (~1h 30m transit time).
 
 ### 📍 Complete 21-Stop Rural Route Index (Expandable in App)
 1. Karjat S.T. Stand (Depot) • 2. Khind Karjat • 3. Char Phata (Char Rasta) • 4. Haliwali • 5. Kirawali Phata • 6. Kotwal Nagar • 7. Dmart / Wanjale • 8. Sawargaon • 9. Koshane Village • 10. Ashane Village • 11. Umroli • 12. Diksal • 13. Bhivpuri Road Station Phata • 14. Chinchawali • 15. Bekare • 16. Vadavali • 17. Kashele Village / Phata • 18. Ambiwali (Peth Fort Base) • 19. Mangaon • 20. Jambrung Village Stop • 21. Solanpada ST Bus Stop (VBU).
@@ -26,18 +26,18 @@ There are **no intermediate boarding or drop stops**. The shuttle runs directly 
 ## ⏰ Official Daily Departure Timetable (Ordered by Departure Station)
 
 ### 🚌 Departing from Karjat (Karjat S.T. Stand ➔ Solanpada VBU Campus)
-1. **08:30 AM to 09:45 AM** — Morning Rail Feeder (Depot Bay 4 • Arr 9:45 AM at Solanpada VBU)
-2. **11:30 AM to 12:45 PM** — Midday Campus Connector (Depot Bay 2 • Arr 12:45 PM)
-3. **01:00 PM to 02:15 PM** — Post-Lunch Station Return (Depot Bay 3 • Arr 2:15 PM)
-4. **04:15 PM to 05:30 PM** — Evening Campus Return (Sync with suburban local trains • Arr 5:30 PM)
+1. **08:30 AM to 10:00 AM** — Morning Rail Feeder (Depot Bay 4 • Arr 10:00 AM at Solanpada VBU)
+2. **11:30 AM to 01:00 PM** — Midday Campus Connector (Depot Bay 2 • Arr 1:00 PM)
+3. **01:00 PM to 02:30 PM** — Post-Lunch Station Return (Depot Bay 3 • Arr 2:30 PM)
+4. **04:15 PM to 05:45 PM** — Evening Campus Return (Sync with suburban local trains • Arr 5:45 PM)
 5. **07:30 PM to 09:00 PM** — Night Campus Shuttle (Last Scheduled Return • Arr 9:00 PM)
 
 ### 🚌 Departing from Solanpada (Solanpada VBU Campus ➔ Karjat S.T. Stand)
-1. **06:00 AM to 08:30 AM** — Early Morning Express (VBU Porch Bay 1 • Arr 8:30 AM at Karjat Station)
-2. **09:45 AM to 11:30 AM** — Morning Academic Shuttle (VBU Porch Bay 2 • Arr 11:30 AM)
-3. **12:45 PM to 01:00 PM** — Mid-Day Town Express (VBU Porch Bay 1 • Arr 1:00 PM)
-4. **02:15 PM to 04:15 PM** — Afternoon Campus Exit (VBU Porch Bay 1 • Arr 4:15 PM)
-5. **05:30 PM to 06:30 PM** — Evening Peak Transit (Direct to Karjat Station • Arr 6:30 PM)
+1. **06:00 AM to 07:30 AM** — Early Morning Express (VBU Porch Bay 1 • Arr 7:30 AM at Karjat Station)
+2. **09:45 AM to 11:15 AM** — Morning Academic Shuttle (VBU Porch Bay 2 • Arr 11:15 AM)
+3. **12:45 PM to 02:15 PM** — Mid-Day Town Express (VBU Porch Bay 1 • Arr 2:15 PM)
+4. **02:15 PM to 03:45 PM** — Afternoon Campus Exit (VBU Porch Bay 1 • Arr 3:45 PM)
+5. **05:30 PM to 07:00 PM** — Evening Peak Transit (Direct to Karjat Station • Arr 7:00 PM)
 
 ---
 

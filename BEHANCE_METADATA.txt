@@ -1,0 +1,60 @@
+================================================================================
+BEHANCE READY-TO-UPLOAD PACK: DailyToGo Case Study
+================================================================================
+
+1. PROJECT DETAILS (Copy-paste into Behance Project Settings):
+--------------------------------------------------------------------------------
+Project Title:
+DailyToGo — Next-Gen Student Transit & Campus Travel App
+
+Project Subtitle / Summary:
+Eliminating the 90-minute rural information vacuum between Vijaybhoomi University (Solanpada) and Karjat Railway Station with real-time transit telemetry and 1-click information architecture.
+
+Creative Fields:
+- Interaction Design
+- UI/UX
+- Product Design
+
+Tools Used:
+- Figma
+- HTML5
+- CSS3
+- JavaScript
+- Excalidraw
+
+Project Tags (Keywords):
+DailyToGo, Vijaybhoomi University, Campus Transit, Bus Tracking, UX Case Study, UIUX, Public Transit, Nielsen Heuristics, Information Architecture, Heuristic Evaluation, Rural Transit, India Transit
+
+Visibility:
+Public
+
+--------------------------------------------------------------------------------
+2. HOW TO UPLOAD TO BEHANCE IN 3 STEPS:
+--------------------------------------------------------------------------------
+
+Step 1: Open the Ready Canvas
+- In your browser, open:
+  C:\Users\sojo\hypertonny\bnh\vijaybhoomi\behance_showcase.html
+  (This is formatted exactly to Behance's standard 1400px canvas with all your diagrams, quotes, and research artifacts embedded).
+
+Step 2: Save as Image or PDF
+- Press Ctrl + P (or click "Save Canvas / Print").
+- Select "Save as PDF" (or use your browser's "Capture full size screenshot" in DevTools: Ctrl+Shift+I -> Ctrl+Shift+P -> "Capture full size screenshot").
+- This gives you the high-resolution visual boards.
+
+Step 3: Upload to Behance
+- Go to https://www.behance.net and click "Create a Project".
+- Click "Image" and upload the screenshots from behance_showcase.html (or upload the individual diagrams from your `images/` folder).
+- Paste the description and tags from Section 1 above.
+- Click "Publish".
+- Copy the published Behance URL for your professor's submission checklist!
+
+--------------------------------------------------------------------------------
+3. LIVE LINKS TO INCLUDE IN BEHANCE DESCRIPTION:
+--------------------------------------------------------------------------------
+Live Interactive Prototype:
+https://hypertonny.github.io/UI-UX-Best-Practice/
+
+Figma Design Source:
+https://www.figma.com/design/ec61TJtdtqDHxSKYTMLajN/Untitled?node-id=4-465&t=4wfa10UJkH6ZvGFQ-1
+================================================================================

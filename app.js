@@ -28,10 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
       videoBadge: 'FEED 2: SHUTTLE TO SOLANPADA (VBU)',
       videoCaption: 'VBU Shuttle Heading to Solanpada Campus (Direct 2-Stop)',
       trips: [
-        { dep: '8:30 AM',  h: 8,  m: 30, arr: '9:45 AM',  name: '8:30 AM ➔ 9:45 AM',  sub: 'Karjat Depot Bay 4 • Arr 9:45 AM at Solanpada (VBU)' },
-        { dep: '11:30 AM', h: 11, m: 30, arr: '12:45 PM', name: '11:30 AM ➔ 12:45 PM', sub: 'Midday Campus Connector • Direct to VBU Gate • Arr 12:45 PM' },
-        { dep: '1:00 PM',  h: 13, m: 0,  arr: '2:15 PM',  name: '1:00 PM ➔ 2:15 PM',   sub: 'Post-Lunch Shuttle • Depot Bay 3 • Arr 2:15 PM' },
-        { dep: '4:15 PM',  h: 16, m: 15, arr: '5:30 PM',  name: '4:15 PM ➔ 5:30 PM',   sub: 'Evening Campus Return • Sync with Mumbai Local • Arr 5:30 PM' },
+        { dep: '8:30 AM',  h: 8,  m: 30, arr: '10:00 AM', name: '8:30 AM ➔ 10:00 AM', sub: 'Karjat Depot Bay 4 • Arr 10:00 AM at Solanpada (VBU)' },
+        { dep: '11:30 AM', h: 11, m: 30, arr: '1:00 PM',  name: '11:30 AM ➔ 1:00 PM',  sub: 'Midday Campus Connector • Direct to VBU Gate • Arr 1:00 PM' },
+        { dep: '1:00 PM',  h: 13, m: 0,  arr: '2:30 PM',  name: '1:00 PM ➔ 2:30 PM',   sub: 'Post-Lunch Shuttle • Depot Bay 3 • Arr 2:30 PM' },
+        { dep: '4:15 PM',  h: 16, m: 15, arr: '5:45 PM',  name: '4:15 PM ➔ 5:45 PM',   sub: 'Evening Campus Return • Sync with Mumbai Local • Arr 5:45 PM' },
         { dep: '7:30 PM',  h: 19, m: 30, arr: '9:00 PM',  name: '7:30 PM ➔ 9:00 PM',   sub: 'Night Campus Shuttle • Last Scheduled Return • Arr 9:00 PM' }
       ]
     },
@@ -48,14 +48,118 @@ document.addEventListener('DOMContentLoaded', () => {
       videoBadge: 'FEED 1: SHUTTLE TO KARJAT DEPOT',
       videoCaption: 'VBU Shuttle Cruising to Karjat (Direct 2-Stop)',
       trips: [
-        { dep: '6:00 AM',  h: 6,  m: 0,  arr: '8:30 AM',  name: '6:00 AM ➔ 8:30 AM',  sub: 'Early Morning Express • Direct to Karjat Station • Arr 8:30 AM' },
-        { dep: '9:45 AM',  h: 9,  m: 45, arr: '11:30 AM', name: '9:45 AM ➔ 11:30 AM', sub: 'Morning Academic Shuttle • VBU Main Porch Bay 1 • Arr 11:30 AM' },
-        { dep: '12:45 PM', h: 12, m: 45, arr: '1:00 PM',  name: '12:45 PM ➔ 1:00 PM', sub: 'Mid-Day Station Connector • Direct to Karjat Depot • Arr 1:00 PM' },
-        { dep: '2:15 PM',  h: 14, m: 15, arr: '4:15 PM',  name: '2:15 PM ➔ 4:15 PM',  sub: 'Afternoon Campus Exit • Solanpada Porch Bay 2 • Arr 4:15 PM' },
-        { dep: '5:30 PM',  h: 17, m: 30, arr: '6:30 PM',  name: '5:30 PM ➔ 6:30 PM',  sub: 'Evening Peak Transit • Direct to Karjat Station • Arr 6:30 PM' }
+        { dep: '6:00 AM',  h: 6,  m: 0,  arr: '7:30 AM',  name: '6:00 AM ➔ 7:30 AM',  sub: 'Early Morning Express • Direct to Karjat Station • Arr 7:30 AM' },
+        { dep: '9:45 AM',  h: 9,  m: 45, arr: '11:15 AM', name: '9:45 AM ➔ 11:15 AM', sub: 'Morning Academic Shuttle • VBU Main Porch Bay 1 • Arr 11:15 AM' },
+        { dep: '12:45 PM', h: 12, m: 45, arr: '2:15 PM',  name: '12:45 PM ➔ 2:15 PM',  sub: 'Mid-Day Station Connector • Direct to Karjat Depot • Arr 2:15 PM' },
+        { dep: '2:15 PM',  h: 14, m: 15, arr: '3:45 PM',  name: '2:15 PM ➔ 3:45 PM',   sub: 'Afternoon Campus Exit • Solanpada Porch Bay 2 • Arr 3:45 PM' },
+        { dep: '5:30 PM',  h: 17, m: 30, arr: '7:00 PM',  name: '5:30 PM ➔ 7:00 PM',   sub: 'Evening Peak Transit • Direct to Karjat Station • Arr 7:00 PM' }
       ]
     }
   };
+
+  // =========================================================================
+  // 1B. 7 KEY CORRIDOR STOPS & MULTILINGUAL LOCALIZATION (EN / HI / MR)
+  // =========================================================================
+  const STOPS_DATA = {
+    'solanpada-karjat': [
+      { name: 'Solanpada ST Bus Stop', sub: 'VBU Campus Porch Bay 1', time: '02:15 PM' },
+      { name: 'Jambrung Village Stop', sub: 'Ghat Base Passenger Halt', time: '+12m' },
+      { name: 'Kashele Village / Market Phata', sub: 'Mid-Route Student Junction', time: '44 km/h' },
+      { name: 'Bhivpuri Road Station Phata', sub: 'Suburban Train Feeder Link', time: '+45m' },
+      { name: 'D-Mart / Wanjale Phata', sub: 'Karjat Outskirts Halt', time: '+65m' },
+      { name: 'Char Rasta (Char Phata)', sub: 'Market Interchange Crossing', time: '+78m' },
+      { name: 'Karjat S.T. Stand (Depot)', sub: 'Suburban Rail Interchange • Bay 3', time: '03:45 PM' }
+    ],
+    'karjat-solanpada': [
+      { name: 'Karjat S.T. Stand (Depot)', sub: 'Karjat Depot Bay 4 • Train Interchange', time: '08:30 AM' },
+      { name: 'Char Rasta (Char Phata)', sub: 'Market Interchange Crossing', time: '+12m' },
+      { name: 'D-Mart / Wanjale Phata', sub: 'Karjat Outskirts Halt', time: '+25m' },
+      { name: 'Bhivpuri Road Station Phata', sub: 'Suburban Train Feeder Link', time: '46 km/h' },
+      { name: 'Kashele Village / Market Phata', sub: 'Mid-Route Student Junction', time: '+50m' },
+      { name: 'Jambrung Village Stop', sub: 'Ghat Base Passenger Halt', time: '+75m' },
+      { name: 'Solanpada ST Bus Stop', sub: 'VBU Campus Main Gate • Bay 1', time: '10:00 AM' }
+    ]
+  };
+
+  const I18N = {
+    en: {
+      quickTab: 'quick',
+      liveTab: 'live',
+      timingsTab: 'timings',
+      accountTab: 'account',
+      solanpadaKarjatChip: 'Solanpada ➔ Karjat',
+      karjatSolanpadaChip: 'Karjat ➔ Solanpada',
+      nextShuttleChip: 'Next Shuttle',
+      nightExamChip: 'Night Exam',
+      nextDep: 'Next Departure',
+      estArr: 'Est. Arrival',
+      liveCountdown: 'Live Boarding Countdown',
+      showPass: 'Show Pass',
+      directProgression: 'Corridor Route Progression',
+      keyHaltsBadge: '7 Key Halts',
+      corridorBanner: 'KARJAT ⇄ SOLANPADA GHAT CORRIDOR',
+      corridorDistance: '24.2 km • ~1h 30m',
+      dailySchedule: 'Daily Bus Schedule',
+      departingKarjat: 'Departing from Karjat (Karjat ➔ Solanpada)',
+      departingSolanpada: 'Departing from Solanpada (Solanpada ➔ Karjat)',
+      onTime: 'ON TIME',
+      nextBus: 'NEXT BUS',
+      saveChanges: 'Save profile changes',
+      toastLang: 'Language: English'
+    },
+    hi: {
+      quickTab: 'त्वरित',
+      liveTab: 'लाइव',
+      timingsTab: 'समय',
+      accountTab: 'खाता',
+      solanpadaKarjatChip: 'सोलनपाडा ➔ कर्जत',
+      karjatSolanpadaChip: 'कर्जत ➔ सोलनपाडा',
+      nextShuttleChip: 'अगली बस',
+      nightExamChip: 'नाइट बस',
+      nextDep: 'अगला प्रस्थान',
+      estArr: 'अनुमानित आगमन',
+      liveCountdown: 'लाइव बोर्डिंग उलटी गिनती',
+      showPass: 'पास दिखाएं',
+      directProgression: 'रूट स्टॉप्स (7 प्रमुख हॉल्ट्स)',
+      keyHaltsBadge: '7 मुख्य पड़ाव',
+      corridorBanner: 'कर्जत ⇄ सोलनपाडा घाट मार्ग',
+      corridorDistance: '24.2 किमी • ~1घं 30मि',
+      dailySchedule: 'दैनिक बस समय सारणी',
+      departingKarjat: 'कर्जत से प्रस्थान (कर्जत ➔ सोलनपाडा)',
+      departingSolanpada: 'सोलनपाडा से प्रस्थान (सोलनपाडा ➔ कर्जत)',
+      onTime: 'समय पर',
+      nextBus: 'अगली बस',
+      saveChanges: 'प्रोफ़ाइल सुरक्षित करें',
+      toastLang: 'भाषा: हिंदी'
+    },
+    mr: {
+      quickTab: 'झटपट',
+      liveTab: 'थेट',
+      timingsTab: 'वेळापत्रक',
+      accountTab: 'खाते',
+      solanpadaKarjatChip: 'सोलनपाडा ➔ कर्जत',
+      karjatSolanpadaChip: 'कर्जत ➔ सोलनपाडा',
+      nextShuttleChip: 'पुढील बस',
+      nightExamChip: 'रात्र बस',
+      nextDep: 'पुढील प्रस्थान',
+      estArr: 'अंदाजे आगमन',
+      liveCountdown: 'थेट बोर्डिंग काउंटडाउन',
+      showPass: 'पास दाखवा',
+      directProgression: 'मार्ग प्रगती (7 मुख्य थांबे)',
+      keyHaltsBadge: '7 मुख्य थांबे',
+      corridorBanner: 'कर्जत ⇄ सोलनपाडा घाट कॉरिडॉर',
+      corridorDistance: '24.2 किमी • ~1तास 30मि',
+      dailySchedule: 'दैनिक बस वेळापत्रक',
+      departingKarjat: 'कर्जतवरून प्रस्थान (कर्जत ➔ सोलनपाडा)',
+      departingSolanpada: 'सोलनपाडावरून प्रस्थान (सोलनपाडा ➔ कर्जत)',
+      onTime: 'वेळेवर',
+      nextBus: 'पुढील बस',
+      saveChanges: 'बदल जतन करा',
+      toastLang: 'भाषा: मराठी'
+    }
+  };
+
+  let activeLanguage = 'en';
 
   // State Management
   let activeDirection = 'solanpada-karjat';
@@ -319,6 +423,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (tDestSub) tDestSub.textContent = dir.destBay;
     if (tDestTime) tDestTime.textContent = trip.arr;
 
+    // Update 7 Corridor Halts progression
+    updateRouteStops(dirKey, trip.dep, trip.arr);
+
     // --- Screen 3: Schedule Cards Highlight ---
     const allScheduleCards = document.querySelectorAll('.schedule-card');
     allScheduleCards.forEach(card => {
@@ -356,6 +463,100 @@ document.addEventListener('DOMContentLoaded', () => {
       showToastNotification(msg);
     }
   }
+
+  // Update 7 Intermediate Corridor Halts
+  function updateRouteStops(dirKey, tripDep, tripArr) {
+    const stops = STOPS_DATA[dirKey];
+    if (!stops) return;
+
+    const tOriginName = document.getElementById('timelineOriginName');
+    const tOriginSub = document.getElementById('timelineOriginSub');
+    const tOriginTime = document.getElementById('timelineOriginTime');
+    if (tOriginName) tOriginName.textContent = stops[0].name;
+    if (tOriginSub) tOriginSub.textContent = stops[0].sub;
+    if (tOriginTime) tOriginTime.textContent = tripDep;
+
+    for (let i = 1; i <= 5; i++) {
+      const sName = document.getElementById(`stop${i + 1}Name`);
+      const sSub = document.getElementById(`stop${i + 1}Sub`);
+      const sTime = document.getElementById(`stop${i + 1}Time`);
+      if (sName) sName.textContent = stops[i].name;
+      if (sSub) sSub.textContent = stops[i].sub;
+      if (sTime && !sTime.textContent.includes('km/h')) sTime.textContent = stops[i].time;
+    }
+
+    const tDestName = document.getElementById('timelineDestName');
+    const tDestSub = document.getElementById('timelineDestSub');
+    const tDestTime = document.getElementById('timelineDestTime');
+    if (tDestName) tDestName.textContent = stops[6].name;
+    if (tDestSub) tDestSub.textContent = stops[6].sub;
+    if (tDestTime) tDestTime.textContent = tripArr;
+  }
+
+  // Multilingual Support Engine (EN / HI / MR)
+  function applyLanguage(lang) {
+    activeLanguage = lang;
+    const dict = I18N[lang] || I18N.en;
+
+    // Update Nav Tab labels
+    const tabQuick = document.querySelector('.nav-tab-item[data-target="quick"] .tab-label');
+    const tabLive = document.querySelector('.nav-tab-item[data-target="live"] .tab-label');
+    const tabTimings = document.querySelector('.nav-tab-item[data-target="timings"] .tab-label');
+    const tabAccount = document.querySelector('.nav-tab-item[data-target="account"] .tab-label');
+    if (tabQuick) tabQuick.textContent = dict.quickTab;
+    if (tabLive) tabLive.textContent = dict.liveTab;
+    if (tabTimings) tabTimings.textContent = dict.timingsTab;
+    if (tabAccount) tabAccount.textContent = dict.accountTab;
+
+    // Route chips
+    const chipS2K = document.querySelector('.route-chip[data-route="solanpada-karjat"]');
+    const chipK2S = document.querySelector('.route-chip[data-route="karjat-solanpada"]');
+    const chipNext = document.querySelector('.route-chip[data-route="next-shuttle"]');
+    const chipNight = document.querySelector('.route-chip[data-route="night-run"]');
+    if (chipS2K) chipS2K.textContent = dict.solanpadaKarjatChip;
+    if (chipK2S) chipK2S.textContent = dict.karjatSolanpadaChip;
+    if (chipNext) chipNext.textContent = dict.nextShuttleChip;
+    if (chipNight) chipNight.textContent = dict.nightExamChip;
+
+    // Hero metrics labels
+    const metricLabels = document.querySelectorAll('.metric-col .metric-label');
+    if (metricLabels.length >= 2) {
+      metricLabels[0].textContent = dict.nextDep;
+      metricLabels[1].textContent = dict.estArr;
+    }
+
+    // Live countdown label & show pass CTA
+    const countdownSub = document.querySelector('.countdown-left div div');
+    if (countdownSub) countdownSub.textContent = dict.liveCountdown;
+    const passCta = document.querySelector('.quick-action-cta');
+    if (passCta) passCta.textContent = dict.showPass;
+
+    // Screen 2 Progression header
+    const progTitle = document.querySelector('.stops-card-title span');
+    if (progTitle) progTitle.textContent = dict.directProgression;
+    const progBadge = document.getElementById('stopsProgressionBadge');
+    if (progBadge) progBadge.textContent = dict.keyHaltsBadge;
+
+    // Screen 3 Timetable header
+    const schedTitle = document.querySelector('.timings-header-bar .section-group-title span');
+    if (schedTitle) schedTitle.textContent = dict.dailySchedule;
+
+    // Save profile button
+    const updateProfBtn = document.getElementById('updateProfileBtn');
+    if (updateProfBtn) updateProfBtn.textContent = dict.saveChanges;
+
+    showToastNotification(dict.toastLang);
+  }
+
+  // Language selector button handlers
+  const langBtns = document.querySelectorAll('.lang-btn');
+  langBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.lang;
+      langBtns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      applyLanguage(lang);
+    });
+  });
 
   // =========================================================================
   // 5. INTERACTIVE TIMING & DIRECTION CONTROLS
