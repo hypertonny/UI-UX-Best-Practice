@@ -357,39 +357,47 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
 }
 
 .lang-pill {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  background-color: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-full);
-  padding: 2px;
-  gap: 2px;
+  background-color: var(--bg-surface-elevated) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-full) !important;
+  padding: 3px !important;
+  gap: 2px !important;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .lang-btn {
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  color: var(--text-muted) !important;
   font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 700;
-  padding: 3px 7px;
-  border-radius: var(--radius-full);
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  padding: 4px 8px !important;
+  border-radius: var(--radius-full) !important;
   cursor: pointer;
-  line-height: 1;
+  line-height: 1 !important;
   transition: all var(--transition-fast);
+  box-shadow: none !important;
 }
 
 .lang-btn:hover {
-  color: var(--text-main);
+  color: #FFFFFF !important;
 }
 
 .lang-btn.active {
-  background-color: var(--brand-primary);
-  color: #FFFFFF;
+  background-color: var(--brand-primary) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
 }
 
 .header-action-btn {
