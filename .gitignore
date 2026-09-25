@@ -1,2 +1,9 @@
 # Ignore Excalidraw design source files
 *.excalidraw
+
+# External coursework & tools outside UI/UX project
+CTO/
+Deeplearning/
+.playwright-mcp/
+cybersafe-result.png
+

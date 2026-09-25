@@ -52,14 +52,22 @@
             <h1 class="brand-title">Daily<span>togo</span></h1>
           </div>
 
-          <!-- Top Bell Notification Icon (from Wireframe) -->
-          <button type="button" class="header-action-btn" id="headerBellBtn" aria-label="Open Notifications">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-            </svg>
-            <span class="notif-badge-pill" id="notifBadge" aria-label="3 new notifications">3</span>
-          </button>
+          <!-- Language Selector & Top Bell Group -->
+          <div class="header-right-group">
+            <div class="lang-pill" role="radiogroup" aria-label="Select Language">
+              <button type="button" class="lang-btn active" data-lang="en" title="English">EN</button>
+              <button type="button" class="lang-btn" data-lang="hi" title="हिंदी (Hindi)">हिं</button>
+              <button type="button" class="lang-btn" data-lang="mr" title="मराठी (Marathi)">म</button>
+            </div>
+
+            <button type="button" class="header-action-btn" id="headerBellBtn" aria-label="Open Notifications">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+              </svg>
+              <span class="notif-badge-pill" id="notifBadge" aria-label="3 new notifications">3</span>
+            </button>
+          </div>
         </header>
 
         <!-- Main Screen Scroll Area -->
@@ -114,7 +122,7 @@
                 </div>
                 <div class="metric-col">
                   <span class="metric-label">Est. Arrival</span>
-                  <span class="metric-val" id="estArrVal">3:00 PM</span>
+                  <span class="metric-val" id="estArrVal">3:45 PM</span>
                   <span class="metric-sub" id="destSubVal">Karjat Depot Bay 3</span>
                 </div>
               </div>
@@ -228,51 +236,99 @@
               </div>
             </div>
 
-            <!-- Route Stop Progression Timeline (Pure 2-Stop Direct Route: Karjat ⇄ Solanpada) -->
+            <!-- Route Stop Progression Timeline (7 Key Corridor Stops) -->
             <div class="route-stops-card">
               <div class="stops-card-title">
-                <span>Direct Route Progression</span>
-                <span class="stops-card-badge" style="background-color: var(--brand-primary); color: #FFFFFF;">2 Stops Direct</span>
+                <span data-i18n="progression_title">Corridor Route Progression</span>
+                <span class="stops-card-badge" id="stopsProgressionBadge" style="background-color: var(--brand-primary); color: #FFFFFF;" data-i18n="stops_badge">7 Key Halts</span>
               </div>
 
-              <!-- Point-to-Point Banner -->
+              <!-- Corridor Info Banner -->
               <div style="background-color: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 8px 12px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
-                <span style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--accent-volt);">
-                  POINT-TO-POINT CAMPUS SHUTTLE
+                <span style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--accent-volt);" data-i18n="corridor_banner">
+                  KARJAT ⇄ SOLANPADA GHAT CORRIDOR
                 </span>
-                <span style="font-family: var(--font-mono); font-size: 10px; color: var(--text-dim);">
-                  No intermediate stops
+                <span style="font-family: var(--font-mono); font-size: 10px; color: var(--text-dim);" data-i18n="corridor_distance">
+                  24.2 km • ~1h 30m
                 </span>
               </div>
 
-              <div class="timeline-stops-list">
-                
-                <!-- Stop 1: Departure Terminal -->
-                <div class="timeline-stop-item completed">
+              <div class="timeline-stops-list" id="timelineStopsContainer">
+
+                <!-- Stop 1: Origin -->
+                <div class="timeline-stop-item completed" id="timelineItem1">
                   <div class="stop-left-group">
                     <span class="stop-marker-dot" style="background-color: #10B981; border-color: #FFFFFF;"></span>
                     <div>
                       <div class="stop-name" id="timelineOriginName">Solanpada ST Bus Stop</div>
-                      <div class="stop-type-sub" id="timelineOriginSub">VBU Campus Porch Bay 1 • Direct Non-Stop</div>
+                      <div class="stop-type-sub" id="timelineOriginSub">VBU Campus Porch Bay 1</div>
                     </div>
                   </div>
                   <span class="stop-time-val" id="timelineOriginTime">02:15 PM</span>
                 </div>
 
-                <!-- Mid-Transit Indicator -->
-                <div class="timeline-stop-item current" style="border-left: 2px dashed var(--accent-volt); margin-left: 6px; padding-left: 14px;">
+                <!-- Stop 2: Jambrung -->
+                <div class="timeline-stop-item" id="timelineItem2">
+                  <div class="stop-left-group">
+                    <span class="stop-marker-dot" style="background-color: var(--border-bold); border-color: #243044;"></span>
+                    <div>
+                      <div class="stop-name" id="stop2Name">Jambrung Village Stop</div>
+                      <div class="stop-type-sub" id="stop2Sub">Ghat Base Passenger Halt</div>
+                    </div>
+                  </div>
+                  <span class="stop-time-val" id="stop2Time">+12m</span>
+                </div>
+
+                <!-- Stop 3: Kashele -->
+                <div class="timeline-stop-item current" id="timelineItem3" style="border-left: 2px dashed var(--accent-volt); margin-left: 6px; padding-left: 14px;">
                   <div class="stop-left-group">
                     <span class="stop-marker-dot" style="background-color: var(--accent-volt); border-color: #000000;"></span>
                     <div>
-                      <div class="stop-name" style="color: var(--accent-volt);">Direct Transit In Progress</div>
-                      <div class="stop-type-sub" style="color: var(--text-muted); font-weight: 600;">Ghat Highway Corridor • 24 km Direct • Non-Stop</div>
+                      <div class="stop-name" id="stop3Name" style="color: var(--accent-volt);">Kashele Village / Market Phata</div>
+                      <div class="stop-type-sub" id="stop3Sub" style="color: var(--text-muted); font-weight: 600;">Mid-Route Student Junction</div>
                     </div>
                   </div>
-                  <span class="stop-time-val" style="color: var(--accent-volt); font-weight: 800;">48 km/h</span>
+                  <span class="stop-time-val" id="stop3Time" style="color: var(--accent-volt); font-weight: 800;">44 km/h</span>
                 </div>
 
-                <!-- Stop 2: Final Destination -->
-                <div class="timeline-stop-item">
+                <!-- Stop 4: Bhivpuri -->
+                <div class="timeline-stop-item" id="timelineItem4">
+                  <div class="stop-left-group">
+                    <span class="stop-marker-dot" style="background-color: var(--border-bold); border-color: #243044;"></span>
+                    <div>
+                      <div class="stop-name" id="stop4Name">Bhivpuri Road Station Phata</div>
+                      <div class="stop-type-sub" id="stop4Sub">Suburban Train Feeder Link</div>
+                    </div>
+                  </div>
+                  <span class="stop-time-val" id="stop4Time">+45m</span>
+                </div>
+
+                <!-- Stop 5: D-Mart -->
+                <div class="timeline-stop-item" id="timelineItem5">
+                  <div class="stop-left-group">
+                    <span class="stop-marker-dot" style="background-color: var(--border-bold); border-color: #243044;"></span>
+                    <div>
+                      <div class="stop-name" id="stop5Name">D-Mart / Wanjale Phata</div>
+                      <div class="stop-type-sub" id="stop5Sub">Karjat Outskirts Halt</div>
+                    </div>
+                  </div>
+                  <span class="stop-time-val" id="stop5Time">+65m</span>
+                </div>
+
+                <!-- Stop 6: Char Rasta -->
+                <div class="timeline-stop-item" id="timelineItem6">
+                  <div class="stop-left-group">
+                    <span class="stop-marker-dot" style="background-color: var(--border-bold); border-color: #243044;"></span>
+                    <div>
+                      <div class="stop-name" id="stop6Name">Char Rasta (Char Phata)</div>
+                      <div class="stop-type-sub" id="stop6Sub">Market Interchange Crossing</div>
+                    </div>
+                  </div>
+                  <span class="stop-time-val" id="stop6Time">+78m</span>
+                </div>
+
+                <!-- Stop 7: Final Terminus -->
+                <div class="timeline-stop-item" id="timelineItem7">
                   <div class="stop-left-group">
                     <span class="stop-marker-dot" style="background-color: var(--accent-volt); border-color: #000000;"></span>
                     <div>
@@ -280,7 +336,7 @@
                       <div class="stop-type-sub" id="timelineDestSub" style="color: var(--accent-volt); font-weight: 700;">Suburban Rail Interchange • Bay 3</div>
                     </div>
                   </div>
-                  <span class="stop-time-val" id="timelineDestTime">03:00 PM</span>
+                  <span class="stop-time-val" id="timelineDestTime">03:45 PM</span>
                 </div>
 
               </div>
@@ -311,13 +367,13 @@
                   <span>Departing from Karjat (Karjat ➔ Solanpada)</span>
                 </div>
 
-                <!-- 8:30 AM to 9:45 AM -->
+                <!-- 8:30 AM to 10:00 AM -->
                 <div class="schedule-card" data-direction="karjat-solanpada" data-index="0" role="button" tabindex="0">
                   <div class="sched-left">
                     <div class="sched-time-badge">8:30 AM</div>
                     <div class="sched-meta">
-                      <div class="sched-route-name">8:30 AM ➔ 9:45 AM</div>
-                      <div class="sched-subtext">Karjat Depot Bay 4 • Arr 9:45 AM at Solanpada (VBU)</div>
+                      <div class="sched-route-name">8:30 AM ➔ 10:00 AM</div>
+                      <div class="sched-subtext">Karjat Depot Bay 4 • Arr 10:00 AM at Solanpada (VBU)</div>
                     </div>
                   </div>
                   <div class="sched-right">
@@ -328,13 +384,13 @@
                   </div>
                 </div>
 
-                <!-- 11:30 AM to 12:45 PM -->
+                <!-- 11:30 AM to 1:00 PM -->
                 <div class="schedule-card" data-direction="karjat-solanpada" data-index="1" role="button" tabindex="0">
                   <div class="sched-left">
                     <div class="sched-time-badge">11:30 AM</div>
                     <div class="sched-meta">
-                      <div class="sched-route-name">11:30 AM ➔ 12:45 PM</div>
-                      <div class="sched-subtext">Midday Campus Connector • Direct to VBU Gate</div>
+                      <div class="sched-route-name">11:30 AM ➔ 1:00 PM</div>
+                      <div class="sched-subtext">Midday Campus Connector • Direct to VBU Gate • Arr 1:00 PM</div>
                     </div>
                   </div>
                   <div class="sched-right">
@@ -345,13 +401,13 @@
                   </div>
                 </div>
 
-                <!-- 1:00 PM to 2:15 PM -->
+                <!-- 1:00 PM to 2:30 PM -->
                 <div class="schedule-card" data-direction="karjat-solanpada" data-index="2" role="button" tabindex="0">
                   <div class="sched-left">
                     <div class="sched-time-badge">1:00 PM</div>
                     <div class="sched-meta">
-                      <div class="sched-route-name">1:00 PM ➔ 2:15 PM</div>
-                      <div class="sched-subtext">Post-Lunch Shuttle • Depot Bay 3 • Arr 2:15 PM</div>
+                      <div class="sched-route-name">1:00 PM ➔ 2:30 PM</div>
+                      <div class="sched-subtext">Post-Lunch Shuttle • Depot Bay 3 • Arr 2:30 PM</div>
                     </div>
                   </div>
                   <div class="sched-right">
@@ -362,13 +418,13 @@
                   </div>
                 </div>
 
-                <!-- 4:15 PM to 5:30 PM -->
+                <!-- 4:15 PM to 5:45 PM -->
                 <div class="schedule-card" data-direction="karjat-solanpada" data-index="3" role="button" tabindex="0">
                   <div class="sched-left">
                     <div class="sched-time-badge">4:15 PM</div>
                     <div class="sched-meta">
-                      <div class="sched-route-name">4:15 PM ➔ 5:30 PM</div>
-                      <div class="sched-subtext">Evening Campus Return • Sync with Mumbai Local</div>
+                      <div class="sched-route-name">4:15 PM ➔ 5:45 PM</div>
+                      <div class="sched-subtext">Evening Campus Return • Sync with Mumbai Local • Arr 5:45 PM</div>
                     </div>
                   </div>
                   <div class="sched-right">
@@ -411,13 +467,13 @@
                   <span>Departing from Solanpada (Solanpada ➔ Karjat)</span>
                 </div>
 
-                <!-- 6:00 AM to 8:30 AM -->
+                <!-- 6:00 AM to 7:30 AM -->
                 <div class="schedule-card" data-direction="solanpada-karjat" data-index="0" role="button" tabindex="0">
                   <div class="sched-left">
                     <div class="sched-time-badge">6:00 AM</div>
                     <div class="sched-meta">
-                      <div class="sched-route-name">6:00 AM ➔ 8:30 AM</div>
-                      <div class="sched-subtext">Early Morning Express • Direct to Karjat Station</div>
+                      <div class="sched-route-name">6:00 AM ➔ 7:30 AM</div>
+                      <div class="sched-subtext">Early Morning Express • Direct to Karjat Station • Arr 7:30 AM</div>
                     </div>
                   </div>
                   <div class="sched-right">
@@ -428,13 +484,13 @@
                   </div>
                 </div>
 
-                <!-- 9:45 AM to 11:30 AM -->
+                <!-- 9:45 AM to 11:15 AM -->
                 <div class="schedule-card" data-direction="solanpada-karjat" data-index="1" role="button" tabindex="0">
                   <div class="sched-left">
                     <div class="sched-time-badge">9:45 AM</div>
                     <div class="sched-meta">
-                      <div class="sched-route-name">9:45 AM ➔ 11:30 AM</div>
-                      <div class="sched-subtext">Morning Academic Shuttle • VBU Main Porch Bay 1</div>
+                      <div class="sched-route-name">9:45 AM ➔ 11:15 AM</div>
+                      <div class="sched-subtext">Morning Academic Shuttle • VBU Main Porch Bay 1 • Arr 11:15 AM</div>
                     </div>
                   </div>
                   <div class="sched-right">
@@ -445,13 +501,13 @@
                   </div>
                 </div>
 
-                <!-- 12:45 PM to 1:00 PM -->
+                <!-- 12:45 PM to 2:15 PM -->
                 <div class="schedule-card" data-direction="solanpada-karjat" data-index="2" role="button" tabindex="0">
                   <div class="sched-left">
                     <div class="sched-time-badge">12:45 PM</div>
                     <div class="sched-meta">
-                      <div class="sched-route-name">12:45 PM ➔ 1:00 PM</div>
-                      <div class="sched-subtext">Mid-Day Station Connector • Direct to Karjat Depot</div>
+                      <div class="sched-route-name">12:45 PM ➔ 2:15 PM</div>
+                      <div class="sched-subtext">Mid-Day Station Connector • Direct to Karjat Depot • Arr 2:15 PM</div>
                     </div>
                   </div>
                   <div class="sched-right">
@@ -462,13 +518,13 @@
                   </div>
                 </div>
 
-                <!-- 2:15 PM to 4:15 PM -->
+                <!-- 2:15 PM to 3:45 PM -->
                 <div class="schedule-card next-bus active-selected-bus" data-direction="solanpada-karjat" data-index="3" role="button" tabindex="0">
                   <div class="sched-left">
                     <div class="sched-time-badge">2:15 PM</div>
                     <div class="sched-meta">
-                      <div class="sched-route-name">2:15 PM ➔ 4:15 PM</div>
-                      <div class="sched-subtext">Afternoon Campus Exit • Solanpada Porch Bay 2</div>
+                      <div class="sched-route-name">2:15 PM ➔ 3:45 PM</div>
+                      <div class="sched-subtext">Afternoon Campus Exit • Solanpada Porch Bay 2 • Arr 3:45 PM</div>
                     </div>
                   </div>
                   <div class="sched-right">
@@ -479,13 +535,13 @@
                   </div>
                 </div>
 
-                <!-- 5:30 PM to 6:30 PM -->
+                <!-- 5:30 PM to 7:00 PM -->
                 <div class="schedule-card" data-direction="solanpada-karjat" data-index="4" role="button" tabindex="0">
                   <div class="sched-left">
                     <div class="sched-time-badge">5:30 PM</div>
                     <div class="sched-meta">
-                      <div class="sched-route-name">5:30 PM ➔ 6:30 PM</div>
-                      <div class="sched-subtext">Evening Peak Transit • Direct to Karjat Station</div>
+                      <div class="sched-route-name">5:30 PM ➔ 7:00 PM</div>
+                      <div class="sched-subtext">Evening Peak Transit • Direct to Karjat Station • Arr 7:00 PM</div>
                     </div>
                   </div>
                   <div class="sched-right">

@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DailyToGo — Presentation Slides (STET301)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090C10;
+      --card: #121722;
+      --card-border: #232D3F;
+      --primary: #2563EB;
+      --volt: #CCFF00;
+      --emerald: #10B981;
+      --coral: #EF4444;
+      --text: #FFFFFF;
+      --muted: #94A3B8;
+      --font-head: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #030712;
+      color: var(--text);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0 60px 0;
+    }
+
+    /* Screen Top Toolbar (Hidden when printing PDF) */
+    .toolbar {
+      position: sticky;
+      top: 12px;
+      z-index: 1000;
+      background: rgba(18, 23, 34, 0.95);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 9999px;
+      padding: 8px 18px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+      margin-bottom: 24px;
+    }
+
+    .toolbar-info {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--volt);
+    }
+
+    .btn {
+      background: #1E293B;
+      color: #fff;
+      border: 1px solid var(--card-border);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .btn-pdf {
+      background: var(--volt);
+      color: #000;
+      border-color: var(--volt);
+      font-weight: 700;
+    }
+
+    .btn-pdf:hover {
+      background: #b8e600;
+      color: #000;
+    }
+
+    /* Slides Deck Container */
+    .deck-container {
+      width: 100%;
+      max-width: 1080px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    /* Individual Slide Card — 16:9 Landscape */
+    .slide {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--bg);
+      border: 2px solid var(--card-border);
+      border-radius: 20px;
+      padding: 44px 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+    }
+
+    /* Slide Header */
+    .slide-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 18px;
+    }
+
+    .slide-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--volt);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .slide-title {
+      font-family: var(--font-head);
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .slide-num {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      background: #141A26;
+      border: 1px solid var(--card-border);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    /* Slide Body Grid */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    /* Clean Card Component */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px 22px;
+    }
+
+    .card.highlight {
+      border-color: var(--volt);
+      background: rgba(204, 255, 0, 0.03);
+    }
+
+    .card.primary {
+      border-color: var(--primary);
+    }
+
+    .card-title {
+      font-family: var(--font-head);
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title .tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      background: var(--primary);
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .card-p {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .card-p strong {
+      color: #fff;
+    }
+
+    /* List items */
+    .point-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .point-list li {
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .point-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--volt);
+      font-weight: bold;
+    }
+
+    /* Stat Box */
+    .stat-row {
+      display: flex;
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .stat-box {
+      flex: 1;
+      background: #0D111A;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 10px 14px;
+    }
+
+    .stat-val {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--volt);
+    }
+
+    .stat-lbl {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* Table */
+    table.slide-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+
+    table.slide-table th, table.slide-table td {
+      border: 1px solid var(--card-border);
+      padding: 10px 12px;
+      text-align: left;
+    }
+
+    table.slide-table th {
+      background: #000;
+      color: var(--volt);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    table.slide-table td {
+      background: var(--card);
+      color: var(--muted);
+    }
+
+    table.slide-table td strong {
+      color: #fff;
+    }
+
+    /* Slide Footer */
+    .slide-footer {
+      border-top: 1px solid var(--card-border);
+      padding-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+    }
+
+    .pitch-tip {
+      color: var(--volt);
+      font-weight: 600;
+    }
+
+    /* PRINT / PDF GENERATION RULES */
+    @media print {
+      body {
+        background: #000 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .toolbar {
+        display: none !important;
+      }
+
+      .deck-container {
+        max-width: 100% !important;
+        gap: 0 !important;
+      }
+
+      .slide {
+        page-break-after: always !important;
+        page-break-inside: avoid !important;
+        break-after: page !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        aspect-ratio: auto !important;
+        padding: 50px 60px !important;
+        background: #090C10 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+
+    @page {
+      size: landscape;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Action Bar (Hidden on PDF export) -->
+  <aside class="toolbar" aria-label="Slide Deck Navigation">
+    <span class="toolbar-info">DailyToGo • 7 Slides</span>
+    <button type="button" class="btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Top</button>
+    <button type="button" class="btn btn-pdf" onclick="window.print()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Export as PDF / Print
+    </button>
+  </aside>
+
+  <main class="deck-container">
+
+    <!-- SLIDE 1: Title & Overview -->
+    <section class="slide" id="slide-1">
+      <div class="slide-top">
+        <div>
+          <div class="slide-badge">STET301 · Human Computer Interaction</div>
+          <h1 class="slide-title">DailyToGo — Student Transit Tracking App</h1>
+        </div>
+        <div class="slide-num">01 / 07</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card highlight">
+            <h2 class="card-title">Project Purpose</h2>
+            <p class="card-p">
+              Solving the <strong>unpredictable campus commute</strong> between <strong>Vijaybhoomi University (Solanpada)</strong> and <strong>Karjat Railway Station</strong>.
+            </p>
+            <p class="card-p" style="margin-top: 10px;">
+              Moving from initial Figma wireframes into a fully working, interactive mobile prototype deployed on GitHub Pages.
+            </p>
+          </div>
+
+          <div class="card">
+            <h2 class="card-title">Student Details</h2>
+            <ul class="point-list" style="margin-top: 6px;">
+              <li><strong>Author:</strong> Rahul Purohit</li>
+              <li><strong>Roll Number:</strong> 2024sepvugp0079</li>
+              <li><strong>University:</strong> Vijaybhoomi University (School of Science & Tech)</li>
+              <li><strong>Prototype:</strong> hypertonny.github.io/UI-UX-Best-Practice/</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <footer class="slide-footer">
+        <span>Vijaybhoomi School of Science & Technology</span>
+        <span class="pitch-tip">Pitch: "Today I'm presenting DailyToGo, our campus transit app tested with real users."</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 2: The Core Problem -->
+    <section class="slide" id="slide-2">
+      <div class="slide-top">
+        <div>
+          <div class="slide-badge">01 · Research & Empathy</div>
+          <h2 class="slide-title">The Rural Ghat "Information Vacuum"</h2>
+        </div>
+        <div class="slide-num">02 / 07</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card">
+            <h3 class="card-title">1. The Rural Ghat Road</h3>
+            <p class="card-p">
+              VBU is <strong>24 km away from Karjat station</strong>. It takes about <strong>1 hour 30 minutes</strong> along a winding mountain highway with frequent network blind spots.
+            </p>
+          </div>
+
+          <div class="card highlight">
+            <h3 class="card-title">2. Zero GPS Tracking</h3>
+            <p class="card-p">
+              Government buses and contracted shuttles <strong>have no GPS installed</strong>. Students never know if the bus is 5 minutes away or has already passed.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">3. The Waiting Dip</h3>
+            <p class="card-p">
+              Our 7-stage commuter journey showed that <strong>student anxiety peaks while waiting at the gate</strong> due to a total lack of feedback.
+            </p>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-val">24.2 km</div>
+            <div class="stat-lbl">Transit Distance</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val">~1h 30m</div>
+            <div class="stat-lbl">Travel Time</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val">1 Click</div>
+            <div class="stat-lbl">Target Time to Check ETA</div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="slide-footer">
+        <span>Problem Definition</span>
+        <span class="pitch-tip">Pitch: "Students waste 45-90 minutes waiting in anxiety because there is zero transit feedback."</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 3: Solution & Architecture -->
+    <section class="slide" id="slide-3">
+      <div class="slide-top">
+        <div>
+          <div class="slide-badge">02 · Design Evolution: Wireframe ➔ Code</div>
+          <h2 class="slide-title">Figma Wireframes vs. What We Built Different</h2>
+        </div>
+        <div class="slide-num">03 / 07</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title" style="color: #94A3B8;">🔴 Figma Wireframe (Before)</h3>
+            <ul class="point-list" style="margin-top: 10px;">
+              <li><strong>Static Timing:</strong> Plain text box showing fixed departure time with no live countdown.</li>
+              <li><strong>Cluttered Map:</strong> Displayed all 21 village stops, overwhelming students who only travel point-to-point.</li>
+              <li><strong>Hidden Actions:</strong> No direction swap button; required going through menus to reverse route.</li>
+              <li><strong>No Fault Handling:</strong> Assumed 100% network connectivity in the mountain ghat pass.</li>
+            </ul>
+          </div>
+
+          <div class="card highlight">
+            <h3 class="card-title" style="color: var(--volt);">🟢 Live Production App (After)</h3>
+            <ul class="point-list" style="margin-top: 10px;">
+              <li><strong>Live Clock Ticker:</strong> Real-time ticking countdown (`BOARDING NOW` / `14m 22s`) synced to device clock.</li>
+              <li><strong>7 Key Corridor Halts:</strong> Shows major stops (Char Rasta, D-Mart, Bhivpuri, Kashele, Jambrung) with ETA.</li>
+              <li><strong>1-Tap Thumb Zone:</strong> Sticky direction swapper and "Show Pass" button right on the main screen.</li>
+              <li><strong>Multilingual Engine:</strong> Instant 1-tap toggle for English, Hindi (`हिं`), and Marathi (`म`).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <footer class="slide-footer">
+        <span>Design Evolution</span>
+        <span class="pitch-tip">Pitch: "Moving from Figma to code, we added live clock tickers, 7 key corridor halts, and live Hindi/Marathi language support."</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 4: Usability Testing -->
+    <section class="slide" id="slide-4">
+      <div class="slide-top">
+        <div>
+          <div class="slide-badge">03 · Usability Testing (Exhibition)</div>
+          <h2 class="slide-title">Testing with 5 Real Stakeholders</h2>
+        </div>
+        <div class="slide-num">04 / 07</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">Who Tested It?</h3>
+            <ul class="point-list" style="margin-top: 6px;">
+              <li><strong>Rajdeep</strong> (Commuter Roommate): Checked next bus in 20 seconds; validated 1-click glance.</li>
+              <li><strong>Mayuresh</strong> (Tech Classmate): Verified speed HUD and live video sync.</li>
+              <li><strong>Prasad</strong> (Hostel Roommate): Loved the 1-tap "Show Pass" for gate checks.</li>
+              <li><strong>Omkar Dada</strong> (Night Canteen Manager): Needs bus timings for late shifts; prompted our <strong>Hindi & Marathi support</strong>.</li>
+              <li><strong>1st-Year Student:</strong> Relied on depot bay tags to find the bus at Karjat.</li>
+            </ul>
+          </div>
+
+          <div class="card highlight">
+            <h3 class="card-title">Heuristics & Results</h3>
+            <p class="card-p">
+              <strong>100% Navigation Success:</strong> Every participant found what they were looking for in 1 click without getting stuck.
+            </p>
+            <div style="margin-top: 14px; font-size: 13px; line-height: 1.7; color: var(--muted);">
+              <div><strong style="color: var(--emerald);">✓ Visibility of Status:</strong> Live ticking countdown gives instant peace of mind.</div>
+              <div><strong style="color: var(--emerald);">✓ Efficiency of Use:</strong> All primary tasks reachable with 1 tap in the thumb zone.</div>
+              <div><strong style="color: var(--volt);">★ Implemented Live:</strong> Real-time Hindi (`हिंदी`) & Marathi (`मराठी`) switcher active in the app.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="slide-footer">
+        <span>Usability Testing</span>
+        <span class="pitch-tip">Pitch: "We tested with roommates and our canteen manager Omkar Dada, achieving a 100% navigation success rate."</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 5: System Architecture -->
+    <section class="slide" id="slide-5">
+      <div class="slide-top">
+        <div>
+          <div class="slide-badge">04 · Engineering & System Architecture</div>
+          <h2 class="slide-title">How Live Tracking Works Without Bus GPS</h2>
+        </div>
+        <div class="slide-num">05 / 07</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card highlight">
+            <h3 class="card-title">User Question Raised in Testing</h3>
+            <p class="card-p">
+              <em>"Government buses don't have college GPS chips. How will the live tracking actually work?"</em>
+            </p>
+            <p class="card-p" style="margin-top: 10px;">
+              Instead of waiting for expensive bus hardware, we built a <strong>Dual-Source Software Model</strong>.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">Dual-Source Tracking Model</h3>
+            <ul class="point-list" style="margin-top: 8px;">
+              <li><strong>1. Driver Web Beacon (Primary):</strong> The driver runs a simple web screen on their dashboard that pings coordinates every 10 seconds.</li>
+              <li><strong>2. Passenger Mesh (Crowdsourcing):</strong> When students on the bus confirm their trip, their phones provide opt-in location pings.</li>
+              <li><strong>3. Offline Fallback:</strong> If 4G drops in the mountain pass, the app smoothly switches to the scheduled timetable with an "offline estimate" status.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <footer class="slide-footer">
+        <span>System Architecture</span>
+        <span class="pitch-tip">Pitch: "We solved the GPS problem with driver phone beacons and student crowdsourcing—zero hardware cost."</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 6: Peer Benchmarking -->
+    <section class="slide" id="slide-6">
+      <div class="slide-top">
+        <div>
+          <div class="slide-badge">05 · Peer Benchmarking</div>
+          <h2 class="slide-title">What We Learned from 3 Classmates</h2>
+        </div>
+        <div class="slide-num">06 / 07</div>
+      </div>
+
+      <div class="slide-body">
+        <table class="slide-table">
+          <thead>
+            <tr>
+              <th>Classmate Project</th>
+              <th>Their Concept</th>
+              <th>Their Limitation</th>
+              <th>What DailyToGo Learned</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Kunal & Ganesh</strong><br>(Ride Pooling)</td>
+              <td>Splitting private cabs/autos to reduce student cost.</td>
+              <td>High cognitive load. Students must chat, negotiate, and wait for matches.</td>
+              <td>Confirmed DailyToGo must stay fast: open app and see your bus in 1 second.</td>
+            </tr>
+            <tr>
+              <td><strong>Prasad</strong><br>(Lost & Found)</td>
+              <td>Reporting and claiming lost campus items.</td>
+              <td>Too many steps: took 4 to 5 clicks just to reach the posting form.</td>
+              <td>Reinforced our rule: keep the bus pass and next bus in the 1-tap thumb zone.</td>
+            </tr>
+            <tr>
+              <td><strong>Neermay</strong><br>(Hostel Alert)</td>
+              <td>1-click alert for hostel room checks or emergencies.</td>
+              <td>UI used pure red and white everywhere, causing visual eye strain.</td>
+              <td>Showed why DailyToGo uses a calm dark theme and reserves red only for real errors.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <footer class="slide-footer">
+        <span>Peer Benchmarking</span>
+        <span class="pitch-tip">Pitch: "Comparing with peers proved that speed, 1-tap actions, and calm visual design make the best transit UX."</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 7: Summary & Future Work -->
+    <section class="slide" id="slide-7">
+      <div class="slide-top">
+        <div>
+          <div class="slide-badge">06 · Conclusion & Next Steps</div>
+          <h2 class="slide-title">Project Impact & Next Iteration</h2>
+        </div>
+        <div class="slide-num">07 / 07</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card highlight">
+            <h3 class="card-title">1. Real-World Proof</h3>
+            <p class="card-p">
+              Brought Figma wireframes into a fully working, responsive prototype with video playback and dynamic timing engines.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">2. Inclusivity (Next Step)</h3>
+            <p class="card-p">
+              Adding <strong>Hindi (`हिंदी`) and Marathi</strong> language toggles so night canteen staff and campus security can easily check bus timings.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">3. Behance Case Study</h3>
+            <p class="card-p">
+              Compiled the complete UX story (Observation, Empathy, Card Sort, Testing, Benchmarking) ready for Behance portfolio publication.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <footer class="slide-footer">
+        <span>Conclusion</span>
+        <span class="pitch-tip">Pitch: "Thank you professors. DailyToGo is live, tested, and ready for your viva questions."</span>
+      </footer>
+    </section>
+
+  </main>
+
+</body>
+</html>
